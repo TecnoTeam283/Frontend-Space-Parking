@@ -7,25 +7,30 @@ export const ModalDetails = ({onRequestClose,isOpen}) => {
   return (
     <Modal ariaHideApp={false} className="modalDetails" onRequestClose={onRequestClose} isOpen={isOpen}>
         <div className="contUp">
-            <h3>titulo Parqueadero</h3>
+            <h3>Parqueadero La Cejita</h3>
+            <hr />
+
+          <div className="containerAside">
             <div className="contImages">
-            <img src="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" alt="" />
-            <div className="conttImages">
-            <img className='imgModal' src="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" alt="" />
-            <img className='imgModal' src="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" alt="" />
-            <img className='imgModal' src="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" alt="" />
-            </div>
+              <img id='imgPrin' src="https://res.cloudinary.com/miguelgo205/image/upload/v1684815614/SpaceParking/432216777nidoo-parqueaderos-cy_i901xu.jpg" alt="" />
+              {/* <div className="conttImages"> */}
+              <img className='imgModal' src="https://res.cloudinary.com/miguelgo205/image/upload/v1684815602/SpaceParking/parqueadero1_ljazl7.jpg" alt="" />
+              <img className='imgModal' src="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" alt="" />
+              <img className='imgModal' src="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" alt="" />
+            
             </div>
 
-
+            <hr />
+            <div className="contInfoPark">
+                <p> <span>Direccion:</span> Unicentro</p>
+                <p> <span>Administrador:</span> Jhon Moreno Rios</p>
+                <p> <span>Horarios:</span> 8am - 8pm</p>
+                <p> <span>Precio Moto:</span> 800$ COP hora</p>
+                <p> <span>Precio Carro:</span> 1200$ COP hora</p>
+                <button>Reservar</button>
+            </div>
         </div>
-        <div className="contInfoPark">
-            <p className='adressParking'>Unicentro</p>
-            <p className='sirParking'>Jhon Moreno Rios</p>
-            <p className='hours'>8am - 8pm</p>
-            <p className='priceParking'>Moto $ COP hora</p>
-            <p className='priceParking'>Carro $ COP hora</p>
-            <button>Reservar</button>
+
         </div>
     </Modal>
   )

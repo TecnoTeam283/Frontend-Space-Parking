@@ -20,7 +20,7 @@ body{
 
 .headerUser{
     width: 100%;
-    height: 10%;
+    height: 15vh;
     background: white;
     background: linear-gradient(to right, #dfdfdf, #04BF9D,  #dfdfdf);
     display: flex;
@@ -41,8 +41,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-    /* margin-left: 1rem; */
     margin-right: 3rem;
+    cursor: pointer;
 
 }
 .icon-user{
@@ -68,6 +68,7 @@ body{
 
 #mainHomeUser{
     width: 100%;
+    /* height: 100%; */
     /* height: 80vh; */
     overflow-x: hidden;
     flex-wrap: wrap;
@@ -94,6 +95,7 @@ body{
     transition: all 1s;
     box-shadow: 2px 2px 4px 4px rgb(168, 168, 168);
     margin-bottom: 2rem;
+    cursor: pointer;
 }
 
 .cardParking:hover{
@@ -129,13 +131,12 @@ body{
     margin-top: 0.5rem;
 }
 
-
+/* Modal detalles de parqueadero */
 .modalDetails{
     width: 75%;
-    height: 100%;
+    height: 90%;
     display: flex;
     /* align-items: center; */
-
     position: fixed;
     flex-direction: column;
     z-index: 2000;
@@ -155,18 +156,44 @@ body{
 
 .contUp{
     width: 100%;
-    height: 40%;
+    /* height: 70%; */
     display: flex;
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
+}
+.contUp > h3{
+    align-self: center;
+    color: #04BF9D;
+    margin: 1rem;
 }
 
 .contImages{
+    width: 65%;
     height: 70%;
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.containerAside{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+}
+
+.containerAside > hr{
+    width: 1px;
+    height: 100%;
+}
+#imgPrin{
+    width: 100%;
+    height: 50%;
 }
 
 .conttImages{
+    width: 60%;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -174,16 +201,34 @@ body{
 
 
 .imgModal{
-    width: 200px;
-    height: 200px;
+    width: 30%;
+    height: 50%;
 }
 .contInfoPark{
-    height: 60%;
+    width: 40%;
+    height: 100%;
     color: #000000;
-    border: solid 2px gray;
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    justify-content: space-evenly;
+    /* border: solid 2px gray; */
+}
+
+.contInfoPark>p{
+    font-size: 1.2rem;
+    
+}
+
+.contInfoPark>p > span{
+    color: #04BF9D;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+    font-weight: bold;
 }
 
 
+/* DIV perfil y cerrar sesion */
 .optionsUser{
     display: none;
     position: absolute;
@@ -193,8 +238,8 @@ body{
     width: 15rem;
     /* height: 10rem; */
     background-color: white;
-    top: 9%;
-    right: 3%;
+    top: 13%;
+    right: 0%;
     z-index: 20;
 }
 
@@ -213,4 +258,116 @@ body{
 
 .optionsUser-active{
     display: flex;
+    opacity: 0;
+    animation: fade 0.5s ease-in-out forwards;
+    transition: all 2s;
+}
+
+
+  /* Esstilos para el perfil del usuario */
+.user-profile{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+}
+
+.containerInputs{
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.contBtns{
+    width: 50%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.containerall{
+    width: 100%;
+    height: 85%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+}
+
+.containerInfo{
+    width: 100%;
+    height: 75%;
+    display: flex;
+    flex-direction: row;
+    /* align-items: center; */
+    justify-content: space-evenly;
+}
+
+.personalInfo{
+    width: 50%;
+    height: 100%;
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-evenly;
+    /* background-color: #ffffff; */
+}
+
+
+
+
+.spanInfo{
+    color: #04BF9D;
+    font-weight: bolder;
+    margin-left: 3rem;
+}
+
+.allVehicles{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contVehicles{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+
+    /* justify-content: space-evenly; */
+
+}
+
+.allVehicles > h2{
+    font-size: 2rem;
+    overflow-y: hidden;
+}
+
+
+.vehicle{
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.vehicle> img{
+    width: 90%;
+    height: 90%;
+}
+.vehicle > p{
+    font-size: 1.2rem;
+}
+
+.vehicle > p> span{
+    color: #04BF9D;
+    font-size: 1.2rem;
 }

@@ -93,7 +93,7 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
                 <FormGroup onChange={(e) => onChange(e)} nameInput="nit" contLabel="NIT." place="NIT." inputType="text"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="hourStart" contLabel="Hora Inicio" place="Hora Inicio" inputType="time"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="hourEnd" contLabel="Hora Fin" place="Hora Fin" inputType="time"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="capacity" contLabel="Capacidad Maxima" place="Capacidad Maxima" inputType="number"/>
+                <FormGroup onChange={(e) => onChange(e)} min="10" nameInput="capacity" contLabel="Capacidad Maxima" place="Capacidad Maxima" inputType="number"/>
                 <FormGroup  nameInput="Images" contLabel="Imagenes Parqueadero" place="Imagenes Parqueadero" inputType="file"/>
                 
                 </div>
