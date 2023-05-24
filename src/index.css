@@ -321,7 +321,7 @@ button {
 	color: white;
 	font-size: 12px;
 	font-weight: bold;
-	padding: 12px 45px;
+	/* padding: 12px 45px; */
 	letter-spacing: 1px;
 	text-transform: uppercase;
 	transition: transform 80ms ease-in;
@@ -356,7 +356,9 @@ button:focus {
 }
 
 button.ghostLogin{
-  display: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
   width: 12rem;
   background: linear-gradient(to right, #04BF9D, #f6f6f6);
 	border-radius: 20px;
@@ -364,7 +366,8 @@ button.ghostLogin{
 	color: #000000;
   align-self: center;
   padding: 12px;
-  
+  align-items: center;
+  text-align: center;
 }
 
 button.ghostLogin:hover{
@@ -903,7 +906,6 @@ z-index: 2000;
 
 
 @media screen and (max-width: 600px) {
-
 
   .titleContainer{
     max-width: 600px;
