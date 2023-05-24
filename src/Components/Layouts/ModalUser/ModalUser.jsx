@@ -46,6 +46,7 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
     try{
       const response = await axios.post("http://localhost:5000/api/users/registerUser", Usuario)
       console.log(response.data);
+      console.log(response.data.name);
       accountCreate()
       onRequestClose("false")
 

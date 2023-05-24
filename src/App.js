@@ -9,6 +9,7 @@ import { MainLogIn } from './Components/Layouts/MainLogIn/MainLogIn';
 import { RecoverPassword } from './Components/Page/RecoverPassword/RecoverPassword';
 import { HomeUser } from './Components/Page/SpaceUser/HomeUser/HomeUser';
 import { ProfileUser } from './Components/Page/SpaceUser/ProfileUser/ProfileUser';
+import { HomeParking } from './Components/Page/AdminParking/HomeParking/HomeParking';
 
 
 
@@ -23,6 +24,7 @@ function App() {
         {/* <Route path="/CreateAccount" element={<CreateAccount/>}></Route> */}
         <Route path="/LogIn" element={<MainLogIn/>}></Route>
         <Route path="/HomeUser" element={<HomeUser/>}></Route>
+        <Route path="/HomeParking" element={<HomeParking/>}></Route>
         <Route path="/RecoverPassword" element={<RecoverPassword/>}></Route>
         <Route path="/ProfileUser" element={<ProfileUser/>}></Route>
 

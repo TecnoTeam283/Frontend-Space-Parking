@@ -7,6 +7,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2'
 export const MainLogIn = () => {
 
+
     // Ventanas de validación 
     const incorrect = () =>{
         Swal.fire({
@@ -43,35 +44,70 @@ export const MainLogIn = () => {
     }
 
      //Connect Backend and Frontend
-    // const navigate = useNavigate();
-    // Inicio De Sesión
-    const [inputs, setInputs] = useState({
-        email: "", 
-        password: ""
-      });
+     // const navigate = useNavigate();
+     // Inicio De Sesión
+     const [inputs, setInputs] = useState({
+         email: "", 
+         password: ""
+       });
+      const { email, password } = inputs;
+
+
+    const onChange = (e) => {
+      setInputs({...inputs, [e.target.name]: e.target.value})
+    };
+
+    const getData = async(e) =>{
+      e.preventDefault()
+      const Usuario = {
+        email
+      };
+      
+      try {
+        const response = await axios.post("http://localhost:5000/api/users/rolUser", Usuario);
+        let userRole = response.data.roles
+        const typerole = userRole.slice(-1)
+        onSubmitLogin(typerole)
+      } catch (error) {
+        incorrect()
+      }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       const navigate = useNavigate();
       const [mensaje, setMensaje] = useState();
       const [loading, setLoading] = useState(false);
     
-      const { email, password } = inputs;
     
-      const onChange = (e) => {
-        setInputs({...inputs, [e.target.name]: e.target.value})
-      };
+      
     
-      const onSubmit = async(e) => {
-        e.preventDefault()
+      const onSubmitLogin = async(typerole) => {
+
         const Usuario = {
           email, password
         };
        
         try {
             const response = await axios.post("http://localhost:5000/api/users/login", Usuario);
-            console.log(response.data);
+            if (typerole === '5') {
+              navigate(`/HomeUser/`);
+            }else {
+              navigate(`/HomeParking/`);
+            }
             correct()
-            navigate(`/HomeUser/`);
-
           } catch (error) {
             incorrect()
           }
@@ -139,10 +175,11 @@ export const MainLogIn = () => {
 
 
             <div className="form-container sign-in-container">
-            <form onSubmit={(e) => onSubmit(e)} id="login" action="">
+            {/* <form onSubmit={(e) => onSubmit(e)} id="login" action=""> */}
+            <form onSubmit={(e) => getData(e)} id="login" action="">
                 <h1 className='titleLogin'>Inicia Sesión</h1>
                 <input onChange={(e) => onChange(e)} name='email' className='inputLogin' id="newUser" type="text" placeholder="Correo" />
-                <input onChange={(e) => onChange(e)} name='password' className='inputLogin' id="newPassword" type="password" placeholder="Contraseña" />
+                <input onChange={(e) => onChange(e)} name='password' required className='inputLogin' id="newPassword" type="password" placeholder="Contraseña" />
                 <button>Inicia Sesión</button>
                     <p className='chose'>O</p>
                 </form>
