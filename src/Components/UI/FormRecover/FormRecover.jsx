@@ -59,7 +59,7 @@ const onSubmit = async(e) => {
   return (
     <form onSubmit={(e) => onSubmit(e)} id='formRecover' action="">
         <h2>¿Olvidaste Tu Contraseña?</h2>
-        <p>No Te preocupes, digita tu correo y haremos lo posible por recuperarla</p>
+        <p>No te preocupes, digita tu correo y haremos lo posible por recuperarla</p>
         <div className="contGroup">
             <FormGroup onChange={(e) => onChange(e)}  contLabel="Correo" place="Correo" inputType="email"/>
         </div>

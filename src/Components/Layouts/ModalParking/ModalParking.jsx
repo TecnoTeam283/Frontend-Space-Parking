@@ -65,6 +65,7 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
   return (
 
     <Modal  ariaHideApp={false} className="modalParking" onRequestClose={onRequestClose} isOpen={isOpen}>
+        
         <h2 id='titleCreate'>Crear Cuenta Administrador De Parqueadero</h2>
             <form onSubmit={(e) => onSubmit(e)} className='createAccount'>
 

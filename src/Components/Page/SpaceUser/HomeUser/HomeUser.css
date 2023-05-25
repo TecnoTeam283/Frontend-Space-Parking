@@ -371,3 +371,61 @@ body{
     color: #04BF9D;
     font-size: 1.2rem;
 }
+
+@media screen and (max-width: 600px) {
+
+    .headerUser{
+        width: 100%;
+        height: 13vh;
+        background: white;
+        background: linear-gradient(to right, #dfdfdf, #04BF9D, #dfdfdf);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        overflow-y: hidden;
+    }
+    #logoHomeUser{
+        width: 150px;
+        height: 80px;
+    }
+    .headerUser > h3{
+        display: none;
+    }
+    .contIcon{
+        width: 50px;
+        height: 45px;
+        margin-right: 0.3rem;
+        overflow: hidden;
+    }
+    .cardParking{
+        width: 45%;
+        height: 18rem;
+        text-align: center;
+    }
+    .nameParking{
+        height: 20%;
+        font-size: 1.01rem;
+        text-align: center;
+        overflow: hidden;
+    }
+    .adressParking{
+        height: 8%;
+        font-size: 0.8rem;
+        overflow: hidden;
+    }
+    .priceParking{
+        height:8%;
+        font-size: 0.8rem;
+        overflow: hidden;
+    }
+
+    /*estilos perfil de usuario*/
+    .vehicle> img{
+        width: 90%;
+        height: 50%;
+    }
+    .allVehicles > h2{
+        text-align: center;
+    }
+    
+}
