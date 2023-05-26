@@ -1,14 +1,39 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from "./HomeUser.css"
 import { CardParking } from '../../../Layouts/CardParking/CardParking'
 import { Logo } from '../../../UI/Logo/Logo'
 import { ModalDetails } from '../../../Layouts/MoldalDetails/ModalDetails'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
+
 export const HomeUser = () => {
 
-  // Modal detalles parqueadero
+  // RENDERIZADO DE PARQUEADEROS 
+  const [collection, setCollection] = useState([]);
 
+  const apiGetParkigns = "http://localhost:5000/api/users/getParking"
+
+
+  useEffect(() =>{
+    const getCollection = async () =>{
+        try{
+          const answer = await axios.get(apiGetParkigns);
+          setCollection(answer.data);
+          // console.log(answer.data);
+        }catch (error) {
+          console.log(error);
+        }
+    };
+        getCollection()
+  }, []);
+
+
+
+
+  // Modal detalles parqueadero
   const [isOpenDetail, setIsOpenDetail] = useState(false);
+
+
 
     const isOpen = () => {
         setIsOpenDetail(true);
@@ -26,7 +51,7 @@ export const HomeUser = () => {
   };
 
 
-  console.log(styles);
+  // console.log(styles);
   return (
     <div id='HomeUser'>
       <ModalDetails isOpen={isOpenDetail}  onRequestClose={handleCloseDetail} closeModal={handleCloseDetail}/>
@@ -52,21 +77,17 @@ export const HomeUser = () => {
 
         <main id='mainHomeUser'>
           <div className="containerParkings">
-            <CardParking showModal={isOpen}  priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1684815614/SpaceParking/432216777nidoo-parqueaderos-cy_i901xu.jpg" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1683169574/SpaceParking/Parking-bro_pjjqbt.png" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1683169573/SpaceParking/Parking-pana_m8lpb8.png" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1683169573/SpaceParking/Parking-rafiki_rhgxqq.png" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1683169574/SpaceParking/Parking-bro_pjjqbt.png" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1683169573/SpaceParking/Parking-pana_m8lpb8.png" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1683169573/SpaceParking/Parking-rafiki_rhgxqq.png" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1683169574/SpaceParking/Parking-bro_pjjqbt.png" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" />
-            <CardParking priceParking="800-1200" adressParking="MZ 3 #33 B/la cejita" nameParking="Parqueadero la cejita" urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1683169574/SpaceParking/Parking-bro_pjjqbt.png" />
-          </div>            
+            {collection.map((item) => (
+              <CardParking
+              key={item.idUserParking}
+              showModal={isOpen}
+              priceParking="800-1200"
+              adressParking={item.address}
+              nameParking={item.nameParking}
+              urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1684815614/SpaceParking/432216777nidoo-parqueaderos-cy_i901xu.jpg"
+              />
+            ))}
+          </div>     
         </main>
     </div>
   )
