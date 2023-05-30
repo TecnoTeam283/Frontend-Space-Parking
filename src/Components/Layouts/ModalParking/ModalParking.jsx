@@ -36,8 +36,8 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
     capacity: ""
   });
 
-  const [mensaje, setMensaje] = useState();
-  const [loading, setLoading] = useState(false);
+  // const [mensaje, setMensaje] = useState();
+  // const [loading, setLoading] = useState(false);
 
   const { name, email, cellphone, idUserParking, password, nameParking, address, cellphoneParking, nit, hourStart, hourEnd, capacity } = inputs;
 
@@ -50,7 +50,7 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
     const UsuarioParking = {
       name, email, cellphone, idUserParking, password, nameParking, address, cellphoneParking, nit, hourStart, hourEnd, capacity
     };
-    setLoading(true)
+    // setLoading(true)
     try{
       const response = await axios.post("http://localhost:5000/api/users/registerParking", UsuarioParking)
       console.log(response.data);

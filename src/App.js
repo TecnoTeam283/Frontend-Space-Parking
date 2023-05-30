@@ -5,12 +5,11 @@ import {Route, Routes} from 'react-router-dom'
 
 import { Inicio } from './Components/Page/Inicio/Inicio';
 // import { CreateAccount } from './Components/Page/CreateAccount/CreateAccount';
-import { MainLogIn } from './Components/Layouts/MainLogIn/MainLogIn';
+import { MainLogIn} from './Components/Layouts/MainLogIn/MainLogIn';
 import { RecoverPassword } from './Components/Page/RecoverPassword/RecoverPassword';
 import { HomeUser } from './Components/Page/SpaceUser/HomeUser/HomeUser';
 import { ProfileUser } from './Components/Page/SpaceUser/ProfileUser/ProfileUser';
 import { HomeParking } from './Components/Page/AdminParking/HomeParking/HomeParking';
-
 
 
 

@@ -25,8 +25,8 @@ const [inputs, setInputs] = useState({
   email: "", 
 });
 
-const [mensaje, setMensaje] = useState();
-const [loading, setLoading] = useState(false);
+// const [mensaje, setMensaje] = useState();
+// const [loading, setLoading] = useState(false);
 
 const { email } = inputs;
 
@@ -39,7 +39,7 @@ const onSubmit = async(e) => {
   const Usuario = {
     email
   };
-  setLoading(true)
+  // setLoading(true)
   try{
     const response = await axios.patch("http://localhost:5000/api/users/recoverPasswordUser", Usuario)
     console.log(response.data);

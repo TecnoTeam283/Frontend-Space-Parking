@@ -1,11 +1,15 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useContext } from 'react'
 import { Img } from '../../UI/Img/Img';
 import { ModalUser } from '../ModalUser/ModalUser';
 import { ModalParking } from '../ModalParking/ModalParking';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import { UserDataContext } from '../../Page/Context/UserDataProvider';
+
+export const nombrePrueba = "Jhon rios";
 export const MainLogIn = () => {
+  const {updateUserData} = useContext(UserDataContext);
 
 
     // Ventanas de validación 
@@ -73,23 +77,9 @@ export const MainLogIn = () => {
       }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       const navigate = useNavigate();
-      const [mensaje, setMensaje] = useState();
-      const [loading, setLoading] = useState(false);
+      // const [mensaje, setMensaje] = useState();
+      // const [loading, setLoading] = useState(false);
     
     
       
@@ -103,10 +93,12 @@ export const MainLogIn = () => {
         try {
             const response = await axios.post("http://localhost:5000/api/users/login", Usuario);
             if (typerole === '5') {
-              // console.log(response.data.idUser);
+              // console.log(response.data);
               navigate(`/HomeUser/`);
+              updateUserData(response.data);
             }else {
               navigate(`/HomeParking/`);
+              // console.log(response.data);
             }
             correct()
           } catch (error) {

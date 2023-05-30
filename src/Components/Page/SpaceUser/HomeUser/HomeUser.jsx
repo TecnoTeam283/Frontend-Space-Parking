@@ -1,14 +1,20 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styles from "./HomeUser.css"
 import { CardParking } from '../../../Layouts/CardParking/CardParking'
+import { UserDataContext} from '../../Context/UserDataProvider'
 import { Logo } from '../../../UI/Logo/Logo'
 import { ModalDetails } from '../../../Layouts/MoldalDetails/ModalDetails'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 
-export const HomeUser = () => {
+// import { nombrePrueba } from '../../../Layouts/MainLogIn/MainLogIn.jsx';
 
-  // RENDERIZADO DE PARQUEADEROS 
+
+export const HomeUser = () => {
+  const { userData} = useContext(UserDataContext);
+  // console.log(userData.name);
+
+  // RENDERIZADO DE PARQUEADREOS 
   const [collection, setCollection] = useState([]);
 
   const apiGetParkigns = "http://localhost:5000/api/users/getParking"
@@ -58,7 +64,7 @@ export const HomeUser = () => {
         <header className='headerUser'>
           <Logo to="/HomeUser" idLogo="logoHomeUser"/>
             
-          <h3 id='nameUser'>Nombre Usuario</h3>
+          <h3 id='nameUser'>{userData?.name}</h3>
           <input placeholder='Buscar Parqueadero' type="text" name="" id="inputSearch" />
 
           <i className='icon-bell'></i>
@@ -80,7 +86,7 @@ export const HomeUser = () => {
             {collection.map((item) => (
               <CardParking
               key={item.idUserParking}
-              showModal={isOpen}
+              showModal={(item) => isOpen(item)}
               priceParking="800-1200"
               adressParking={item.address}
               nameParking={item.nameParking}

@@ -28,8 +28,8 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
     vehicle: ""
   });
 
-  const [mensaje, setMensaje] = useState();
-  const [loading, setLoading] = useState(false);
+  // const [mensaje, setMensaje] = useState();
+  // const [loading, setLoading] = useState(false);
 
   const { name, email, cellphone, idUser, password, placa, model, license, vehicle} = inputs;
 
@@ -42,7 +42,7 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
     const Usuario = {
       name, email, cellphone, idUser ,password, placa, model, license, vehicle
     };
-    setLoading(true)
+    // setLoading(true)
     try{
       const response = await axios.post("http://localhost:5000/api/users/registerUser", Usuario)
       console.log(response.data);
@@ -83,7 +83,15 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
                 <FormGroup onChange={(e) => onChange(e)} nameInput="placa" contLabel="No. Placa" place="No. Placa" inputType="text"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="model" contLabel="Modelo" place="Modelo" inputType="number"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="license" contLabel="No. Licencia" place="No. Licencia" inputType="text"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="vehicle" contLabel="Tipo Vehiculo" place="Tipo Vehiculo" inputType="text"/>
+                {/* <FormGroup onChange={(e) => onChange(e)} nameInput="vehicle" contLabel="Tipo Vehiculo" place="Tipo Vehiculo" inputType="text"/> */}
+                {/* <input type="text" id="new-name" placeholder="Name" >
+                </input> */}
+                <select onChange={(e) => onChange(e)}  name="vehicle" id="select-platform" placeholder='tipo Vehiculo'required className="select-create">
+                    <option value="">Tipo Vehiculo</option>
+                    <option value="Moto">Moto</option>
+                    <option value="Carro">Carro</option>
+                </select>
+                
                 </div>
               </div>
               
