@@ -157,7 +157,7 @@ body{
 
 .contUp{
     width: 100%;
-    /* height: 70%; */
+    height: 100vh;
     display: flex;
     flex-direction: column;
     /* align-items: center; */
@@ -170,15 +170,18 @@ body{
 
 .contImages{
     width: 65%;
-    height: 70%;
+    height: 70vh;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    /* gap: 20px; */
+    overflow-y: hidden;
 }
 
 .containerAside{
     width: 100%;
+    height: auto;
     display: flex;
     flex-direction: row;
     /* align-items: center; */
@@ -186,11 +189,13 @@ body{
 
 .containerAside > hr{
     width: 1px;
-    height: 100%;
+    height: 80vh;
 }
 #imgPrin{
-    width: 100%;
+    width: 80%;
     height: 50%;
+    margin-bottom: 1rem;
+
 }
 
 .conttImages{
@@ -228,6 +233,9 @@ body{
     font-weight: bold;
 }
 
+.btnBooking{
+    align-self: center;
+}
 
 /* DIV perfil y cerrar sesion */
 .optionsUser{

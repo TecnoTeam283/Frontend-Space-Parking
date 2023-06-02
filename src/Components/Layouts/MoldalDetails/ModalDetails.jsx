@@ -1,13 +1,14 @@
 import React from 'react'
 import Modal from 'react-modal'
 
-export const ModalDetails = ({onRequestClose,isOpen}) => {
+export const ModalDetails = ({onRequestClose,isOpen,functionGetItem}) => {
 
-    
+console.log(functionGetItem);
+
   return (
-    <Modal ariaHideApp={false} className="modalDetails" onRequestClose={onRequestClose} isOpen={isOpen}>
+    <Modal getItem={functionGetItem}  ariaHideApp={false} className="modalDetails" onRequestClose={onRequestClose} isOpen={isOpen}>
         <div className="contUp">
-            <h3>Parqueadero La Cejita</h3>
+            <h3>{functionGetItem?.nameParking}</h3>
             <hr />
 
           <div className="containerAside">
@@ -22,12 +23,14 @@ export const ModalDetails = ({onRequestClose,isOpen}) => {
 
             <hr />
             <div className="contInfoPark">
-                <p> <span>Direccion:</span> Unicentro</p>
-                <p> <span>Administrador:</span> Jhon Moreno Rios</p>
-                <p> <span>Horarios:</span> 8am - 8pm</p>
-                <p> <span>Precio Moto:</span> 800$ COP hora</p>
-                <p> <span>Precio Carro:</span> 1200$ COP hora</p>
-                <button>Reservar</button>
+                <p> <span>Direccion:</span>{functionGetItem?.address}</p>
+                <p> <span>Administrador:</span>{functionGetItem?.name}</p>
+                <p> <span>Telefono:</span>{functionGetItem?.cellphone}</p>
+                <p> <span>Correo:</span>{functionGetItem?.email}</p>
+                <p> <span>Horarios:</span>{functionGetItem?.hourStart} - {functionGetItem?.hourEnd}</p>
+                <p> <span>Precio Moto:</span>{functionGetItem?.address}</p>
+                <p> <span>Precio Carro:</span>{functionGetItem?.address}</p>
+                <button className='btnBooking'>Reservar</button>
             </div>
         </div>
 

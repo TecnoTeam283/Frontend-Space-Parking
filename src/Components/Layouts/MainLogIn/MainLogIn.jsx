@@ -21,31 +21,41 @@ export const MainLogIn = () => {
             // footer: '<a href="">Why do I have this issue?</a>'
           })
     }
-    const correct = () =>{
-        let timerInterval
-        Swal.fire({
+    const correct = () => {
+      let timerInterval;
+      Swal.fire({
         icon: "success",
         title: 'Bienvenido',
-        // html: 'I will close in <b></b> milliseconds.',
         timer: 1000,
         timerProgressBar: true,
         didOpen: () => {
-            Swal.showLoading()
-            const b = Swal.getHtmlContainer().querySelector('b')
+          Swal.showLoading();
+          const b = Swal.getPopup().querySelector('b');
+          if (b) {
             timerInterval = setInterval(() => {
-            b.textContent = Swal.getTimerLeft()
-            }, 100)
+              b.textContent = Swal.getTimerLeft();
+            }, 100);
+          }
         },
         willClose: () => {
-            clearInterval(timerInterval)
+          clearInterval(timerInterval);
         }
-        }).then((result) => {
-        /* Read more about handling dismissals below */
+      }).then((result) => {
         if (result.dismiss === Swal.DismissReason.timer) {
-            // console.log('I was closed by the timer')
+          // Lógica adicional después de que se cierre la alerta
         }
-        })
-    }
+      });
+    };
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
      //Connect Backend and Frontend
      // const navigate = useNavigate();

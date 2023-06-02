@@ -57,9 +57,9 @@ export const ProfileUser = () => {
         </header>
         {isEditing ? (
           <div className='containerInputs'>
-            <FormGroup onChange={handleNameChange} inputType="text" contLabel="Nombre" value={userData.name} />
+            {/* <FormGroup onChange={handleNameChange} inputType="text" contLabel="Nombre" value={userData.name} />
             <FormGroup onChange={handleEmailChange} inputType="email" contLabel="Correo" value={userData.email} />
-            <FormGroup onChange={handlePhoneChange} inputType="number" contLabel="Teléfono" value={userData.phone} />
+            <FormGroup onChange={handlePhoneChange} inputType="number" contLabel="Teléfono" value={userData.phone} /> */}
             {/* <FormGroup onChange={handlePhoneChange} inputType="number" contLabel="Teléfono" value={phone} /> */}
     
             <div className="contBtns">

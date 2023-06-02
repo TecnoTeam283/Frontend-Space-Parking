@@ -33,13 +33,15 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
     nit: "",
     hourStart: "",
     hourEnd: "",
-    capacity: ""
+    capacity: "",
+    priceCar: "",
+    priceMotorcycle: ""
   });
 
   // const [mensaje, setMensaje] = useState();
   // const [loading, setLoading] = useState(false);
 
-  const { name, email, cellphone, idUserParking, password, nameParking, address, cellphoneParking, nit, hourStart, hourEnd, capacity } = inputs;
+  const { name, email, cellphone, idUserParking, password, nameParking, address, cellphoneParking, nit, hourStart, hourEnd, capacity, priceCar, priceMotorcycle } = inputs;
 
   const onChange = (e) => {
     setInputs({...inputs, [e.target.name]: e.target.value})
@@ -48,7 +50,7 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
   const onSubmit = async(e) => {
     e.preventDefault()
     const UsuarioParking = {
-      name, email, cellphone, idUserParking, password, nameParking, address, cellphoneParking, nit, hourStart, hourEnd, capacity
+      name, email, cellphone, idUserParking, password, nameParking, address, cellphoneParking, nit, hourStart, hourEnd, capacity, priceMotorcycle, priceCar
     };
     // setLoading(true)
     try{
@@ -95,6 +97,8 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
                 <FormGroup onChange={(e) => onChange(e)} nameInput="hourStart" contLabel="Hora Inicio" place="Hora Inicio" inputType="time"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="hourEnd" contLabel="Hora Fin" place="Hora Fin" inputType="time"/>
                 <FormGroup onChange={(e) => onChange(e)} min="10" nameInput="capacity" contLabel="Capacidad Maxima" place="Capacidad Maxima" inputType="number"/>
+                <FormGroup onChange={(e) => onChange(e)} nameInput="priceCar" contLabel="Hora Carro" place="Hora Carro" inputType="number"/>
+                <FormGroup onChange={(e) => onChange(e)} nameInput="priceMotorcycle" contLabel="Hora Moto" place="Hora Moto" inputType="number"/>
                 <FormGroup  nameInput="Images" contLabel="Imagenes Parqueadero" place="Imagenes Parqueadero" inputType="file"/>
                 
                 </div>

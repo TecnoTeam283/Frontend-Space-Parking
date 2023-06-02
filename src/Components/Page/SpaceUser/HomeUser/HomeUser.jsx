@@ -38,11 +38,12 @@ export const HomeUser = () => {
 
   // Modal detalles parqueadero
   const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const [itemSelected, setItem] = useState(false);
 
 
-
-    const isOpen = () => {
+    const isOpen = (item) => {
         setIsOpenDetail(true);
+        setItem(item)
       };
     
       const handleCloseDetail = () => {
@@ -60,7 +61,7 @@ export const HomeUser = () => {
   // console.log(styles);
   return (
     <div id='HomeUser'>
-      <ModalDetails isOpen={isOpenDetail}  onRequestClose={handleCloseDetail} closeModal={handleCloseDetail}/>
+      <ModalDetails functionGetItem={itemSelected} isOpen={isOpenDetail}  onRequestClose={handleCloseDetail} closeModal={handleCloseDetail}/>
         <header className='headerUser'>
           <Logo to="/HomeUser" idLogo="logoHomeUser"/>
             
@@ -86,7 +87,7 @@ export const HomeUser = () => {
             {collection.map((item) => (
               <CardParking
               key={item.idUserParking}
-              showModal={(item) => isOpen(item)}
+              showModal={() => isOpen(item)}
               priceParking="800-1200"
               adressParking={item.address}
               nameParking={item.nameParking}
