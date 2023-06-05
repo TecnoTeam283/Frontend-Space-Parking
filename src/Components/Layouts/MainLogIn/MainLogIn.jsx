@@ -102,12 +102,13 @@ export const MainLogIn = () => {
        
         try {
             const response = await axios.post("http://localhost:5000/api/users/login", Usuario);
+            updateUserData(response.data);
             if (typerole === '5') {
               // console.log(response.data);
               navigate(`/HomeUser/`);
-              updateUserData(response.data);
             }else {
               navigate(`/HomeParking/`);
+              // updateUserData(response.data);
               // console.log(response.data);
             }
             correct()

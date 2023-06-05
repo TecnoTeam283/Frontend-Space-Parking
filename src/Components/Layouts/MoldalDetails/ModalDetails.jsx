@@ -28,8 +28,8 @@ console.log(functionGetItem);
                 <p> <span>Telefono:</span>{functionGetItem?.cellphone}</p>
                 <p> <span>Correo:</span>{functionGetItem?.email}</p>
                 <p> <span>Horarios:</span>{functionGetItem?.hourStart} - {functionGetItem?.hourEnd}</p>
-                <p> <span>Precio Moto:</span>{functionGetItem?.address}</p>
-                <p> <span>Precio Carro:</span>{functionGetItem?.address}</p>
+                <p> <span>Precio Moto:</span>$ {functionGetItem?.priceMotorcycle} COP</p>
+                <p> <span>Precio Carro:</span>$ {functionGetItem?.priceCar} COP </p>
                 <button className='btnBooking'>Reservar</button>
             </div>
         </div>

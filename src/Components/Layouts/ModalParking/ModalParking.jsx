@@ -81,6 +81,8 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
                 <FormGroup onChange={(e) => onChange(e)} nameInput="idUserParking" contLabel="No. Identificacion" place="No. Identificacion" inputType="number"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="password" contLabel="Contraseña" place="Contraseña" inputType="password"/>
                 <FormGroup contLabel="Confirmar Contraseña" place="Contraseña" inputType="password"/>
+                <FormGroup onChange={(e) => onChange(e)} nameInput="hourStart" contLabel="Hora Inicio" place="Hora Inicio" inputType="time"/>
+                <FormGroup onChange={(e) => onChange(e)} nameInput="hourEnd" contLabel="Hora Fin" place="Hora Fin" inputType="time"/>
                 </div>
  
               </div>
@@ -94,8 +96,6 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
                 <FormGroup onChange={(e) => onChange(e)} nameInput="address" contLabel="Dirección" place="Dirección" inputType="text"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="cellphoneParking" contLabel="Telefono Parqueadero" place="Telefono Parqueadero" inputType="number"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="nit" contLabel="NIT." place="NIT." inputType="text"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="hourStart" contLabel="Hora Inicio" place="Hora Inicio" inputType="time"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="hourEnd" contLabel="Hora Fin" place="Hora Fin" inputType="time"/>
                 <FormGroup onChange={(e) => onChange(e)} min="10" nameInput="capacity" contLabel="Capacidad Maxima" place="Capacidad Maxima" inputType="number"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="priceCar" contLabel="Hora Carro" place="Hora Carro" inputType="number"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="priceMotorcycle" contLabel="Hora Moto" place="Hora Moto" inputType="number"/>

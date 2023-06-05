@@ -88,7 +88,7 @@ export const HomeUser = () => {
               <CardParking
               key={item.idUserParking}
               showModal={() => isOpen(item)}
-              priceParking="800-1200"
+              priceParking={`${item.priceMotorcycle} - $${item.priceCar}`}
               adressParking={item.address}
               nameParking={item.nameParking}
               urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1684815614/SpaceParking/432216777nidoo-parqueaderos-cy_i901xu.jpg"
