@@ -10,6 +10,7 @@ export const ProfileParking = () => {
 
   const [showDiv, setShowDiv] = useState(false);
   const navigate = useNavigate();
+
   const toggleDiv = () => {
     setShowDiv(!showDiv);
   };
@@ -115,7 +116,7 @@ export const ProfileParking = () => {
       setAddress(userData?.address);
       setCellphoneParking(userData?.cellphoneParking);
     }
-  }, [userData]);
+  }, [userData, cellphone, address, cellphoneParking, name]);
 
 
 // Función Actualizar contraseña
@@ -125,7 +126,7 @@ const UpdatePassword = async(e) =>{
     currentPassword, email, newPassword
   };
   try {
-    const upPassword =  axios.patch('http://localhost:5000/api/users/updatePassword', User)
+    axios.patch('http://localhost:5000/api/users/updatePassword', User)
     correctUpdatePass();
     setEditingPassword(false)
 
@@ -142,7 +143,7 @@ const UpdatePassword = async(e) =>{
   };
  
  try {
-   const response = await axios.patch(`http://localhost:5000/api/users/updateUserParking/${userData.idUserParking}`, User);
+   await axios.patch(`http://localhost:5000/api/users/updateUserParking/${userData.idUserParking}`, User);
    getUser()
    setIsEditing(false);
    correctUpdateData();
