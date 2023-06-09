@@ -41,7 +41,7 @@ const onSubmit = async(e) => {
   };
   // setLoading(true)
   try{
-    const response = await axios.patch("http://localhost:5000/api/users/recoverPasswordUser", Usuario)
+    const response = await axios.patch("http://localhost:5000/api/users/recoverPassword", Usuario)
     console.log(response.data);
     accountCreate()
     navigate('/')
@@ -61,7 +61,7 @@ const onSubmit = async(e) => {
         <h2>¿Olvidaste Tu Contraseña?</h2>
         <p>No te preocupes, digita tu correo y haremos lo posible por recuperarla</p>
         <div className="contGroup">
-            <FormGroup onChange={(e) => onChange(e)}  contLabel="Correo" place="Correo" inputType="email"/>
+            <FormGroup onChange={(e) => onChange(e)} nameInput="email"  contLabel="Correo" place="Correo" inputType="email"/>
         </div>
         <button id='btnRecover' type='submit' >Enviar</button>
     </form>

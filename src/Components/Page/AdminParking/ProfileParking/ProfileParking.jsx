@@ -1,17 +1,103 @@
-import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useState, useEffect } from 'react'
 import { Logo } from '../../../UI/Logo/Logo'
 import { UserDataContext } from '../../Context/UserDataProvider'
 import { FormGroup } from '../../../UI/FormGroup/FormGroup'
 import axios from 'axios'
+import Swal from 'sweetalert2'
+import { Link, useNavigate } from 'react-router-dom'
 export const ProfileParking = () => {
 
-  const {userData} = useContext(UserDataContext);
+
+  const [showDiv, setShowDiv] = useState(false);
+  const navigate = useNavigate();
+  const toggleDiv = () => {
+    setShowDiv(!showDiv);
+  };
+
+
+  // Alertas de actualizacion de datos - Contraseña
+
+  const correctUpdatePass = () =>{
+    Swal.fire({
+        icon: 'success',
+        title: '¡Excelente!',
+        html: 'Contraseña Actualizada <br> Debes Volver A Iniciar Sesion',
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'titleUpdatePass',
+          content: 'textUpdatePass',
+          confirmButton: 'btnUpdatePass',
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate(`/`);
+        }
+      });
+    };
+
+  const incorrectUpPassword = () =>{
+      Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Datos incorrectos',
+          confirmButtonText: 'OK',
+          customClass: {
+            title: 'titleUpdateIncorrect',
+            content: 'textUpdatePass',
+            confirmButton: 'btnIncorrectPass',
+          },
+        })
+  }
+
+  const correctUpdateData = () =>{
+    Swal.fire({
+        icon: 'success',
+        title: '¡Excelente!',
+        html: 'Tus Datos Han Sido Actualizados',
+        showConfirmButton: true,
+        confirmButtonText: 'Hecho',
+        customClass: {
+          title: 'titleUpdatePass',
+          content: 'textUpdatePass',
+          confirmButton: 'btnUpdatePass',
+        },
+      })
+    };
+
+  const incorrectUpData = () =>{
+      Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Verifica Los Datos E Intentalo Mas Tarde',
+          confirmButtonText: 'OK',
+          customClass: {
+            title: 'titleUpdateIncorrect',
+            content: 'textUpdatePass',
+            confirmButton: 'btnIncorrectPass',
+          },
+        })
+  }
+
+
+  const {updateUserData} = useContext(UserDataContext);
+  const { userData } = useContext(UserDataContext);
+  const [name, setName] = useState(userData?.name);
+  const [cellphone, setCellphone] = useState(userData?.cellphone);
+  const [address, setAddress] = useState(userData?.address);
+  const [cellphoneParking, setCellphoneParking] = useState(userData?.cellphoneParking);
+  const [currentPassword, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
   const [isEditing, setIsEditing] = useState(false);
-// console.log(userData);
+  const [isEditingPassword, setEditingPassword] = useState(false);
 
   const handleEditClick = () => {
     setIsEditing(true);
+  };
+  const handleEditPassword = () => {
+    setEditingPassword(true);
   };
 
 
@@ -21,28 +107,65 @@ export const ProfileParking = () => {
 
 
   // Logica de Actualizacion de datos
-  const [name, setName] = useState(userData?.name || '');
-  const [email, setEmail] = useState(userData?.email || '');
-  const [cellphone, setCellphone] = useState(userData?.phone || '');
-  const [address, setAddress] = useState(userData?.address || '');
-  const [cellphoneParking, setCellphoneParking] = useState(userData?.phoneParking || '');
+
+  useEffect(() => {
+    if (!name && !cellphone && !address && !cellphoneParking) {
+      setName(userData?.name);
+      setCellphone(userData?.cellphone);
+      setAddress(userData?.address);
+      setCellphoneParking(userData?.cellphoneParking);
+    }
+  }, [userData]);
 
 
- const onSubmit = async(e) => {
+// Función Actualizar contraseña
+const UpdatePassword = async(e) =>{
   e.preventDefault()
   const User = {
-    name, email, cellphone, address, cellphoneParking   
+    currentPassword, email, newPassword
+  };
+  try {
+    const upPassword =  axios.patch('http://localhost:5000/api/users/updatePassword', User)
+    correctUpdatePass();
+    setEditingPassword(false)
+
+  } catch (error) {
+    incorrectUpPassword()
+  }
+}
+
+// Envio de los datos  a la peticion Actualizar datos
+ const UpdateData = async(e) => {
+  e.preventDefault()
+  const User = {
+    name, cellphone, address, cellphoneParking   
   };
  
  try {
    const response = await axios.patch(`http://localhost:5000/api/users/updateUserParking/${userData.idUserParking}`, User);
-  console.log(userData.idUserParking);
-   alert("updated user")
+   getUser()
+   setIsEditing(false);
+   correctUpdateData();
   } catch (error) {
-  alert("error updating user")
-
- }
+  incorrectUpData()
+  }
 }
+
+
+// Peticion de obtener el usuario luego de actualizar los datos
+ const getUser = async () => {
+    try {
+      if (userData?.email) {
+        const response = await axios.post('http://localhost:5000/api/users/meUserParking', { email: userData?.email });
+        updateUserData(response.data);
+      }
+    } catch (error) {
+    }
+  };
+
+  useEffect(() => {
+    getUser();
+  }, [userData]);
 
   return (
     <div className='parkingProfile'>
@@ -50,27 +173,24 @@ export const ProfileParking = () => {
         <Logo to='/HomeParking' idLogo='logoHomeUser' />
         <h3 id='nameUser'>{userData?.nameParking}</h3>
         <i className='icon-bell'></i>
-        <div className='contIcon'>
+        <div onClick={toggleDiv} className='contIcon'>
           <i className='icon-user'></i>
         </div>
-        {/* {showDiv && (
+        {showDiv && (
           <div style={{ display: 'block' }} className='optionsUser'>
-            <Link className='linkOptions' to='/profileParking'>Perfil</Link>
+            <Link className='linkOptions' to='/HomeParking'>Home</Link>
             <hr />
             <Link className='linkOptions' to='/'>Cerrar Sesión</Link>
           </div>
         )
-        } */}
+        }
       </header>
       {isEditing ? (
-        
-          
-            <form className='containerInputs' onSubmit={(e) => onSubmit(e)} action="">
-              <FormGroup onChange={(e) => setName(e.target.value)} nameInput="name" inputType="text" contLabel="Nombre"  value={name} />
-              <FormGroup onChange={(e) => setEmail(e.target.value)} nameInput="email" inputType="email" contLabel="Correo"value={email} />
-              <FormGroup onChange={(e) => setCellphone(e.target.value)} nameInput="cellphone" inputType="number" contLabel="Teléfono" value={cellphone} />
-              <FormGroup onChange={(e) => setAddress(e.target.value)} nameInput="address" inputType="text" contLabel="Dirección" value={address} />
-              <FormGroup onChange={(e) => setCellphoneParking(e.target.value)} nameInput="cellphoneParking" inputType="number" contLabel="Teléfono Parqueadero" value={cellphoneParking} />
+            <form className='containerInputs' onSubmit={(e) => UpdateData(e)} action="">
+              <FormGroup value={name} onChange={(e) => setName(e.target.value)} nameInput="name" inputType="text" contLabel="Nombre"/>
+              <FormGroup value={cellphone} onChange={(e) => setCellphone(e.target.value)} nameInput="cellphone" inputType="number" contLabel="Teléfono"/>
+              <FormGroup value={address} onChange={(e) => setAddress(e.target.value)} nameInput="address" inputType="text" contLabel="Dirección"/>
+              <FormGroup value={cellphoneParking} onChange={(e) => setCellphoneParking(e.target.value)} nameInput="cellphoneParking" inputType="number" contLabel="Teléfono Parqueadero"/>
               <div className="contFuncBtns">
                 <button type='submit'>Actualizar</button>
                 <button onClick={handleCancelClick}>Cancelar</button>
@@ -78,15 +198,24 @@ export const ProfileParking = () => {
 
             
             </form>
+        ):isEditingPassword ? (
+          <form className='containerInputs' onSubmit={(e) => UpdatePassword(e)} action=''>
+            <FormGroup onChange={(e) => setPassword(e.target.value)} nameInput="currentPassword" inputType="password" contLabel="Contraseña Actual" />
+            <FormGroup onChange={(e) => setEmail(e.target.value)} nameInput="email" inputType="email" contLabel="Correo" />
+            <FormGroup onChange={(e) => setNewPassword(e.target.value)} nameInput="newPassword" inputType="text" contLabel="Nueva Contraseña" />
+            <div className="contFuncBtns">
+                <button type='submit'>Actualizar Contraseña</button>
+                <button onClick={()=> setEditingPassword(false)}>Cancelar</button>
+              </div>
+          </form>
         ) : (
-
       <main className="containerall">        
           <div className='containerInfo'>
             <div className="personalInfo">
               <h4>Información Personal</h4>
               <p><span className='spanInfo'>Nombre: </span> {userData?.name}</p>
               <p><span className='spanInfo'>Correo: </span> {userData?.email}</p>
-              <p><span className='spanInfo'>Teléfono:</span> {userData?.phone}</p>
+              <p><span className='spanInfo'>Teléfono:</span> {userData?.cellphone}</p>
               <p><span className='spanInfo'>No. Identificación:</span> {userData?.idUserParking}</p>
               <p><span className='spanInfo'>Nit</span> {userData?.nit}</p>
               {/* <p><span className='spanInfo'>No. Licencia:</span> {userData?.license}</p> */}
@@ -98,7 +227,7 @@ export const ProfileParking = () => {
               
               <p><span className='spanInfo'>Nombre Parqueadero: </span> {userData?.nameParking}</p>
               <p><span className='spanInfo'>Dirección: </span> {userData?.address}</p>
-              <p><span className='spanInfo'>Teléfono Parqueadero: </span> {userData?.phoneParking}</p>
+              <p><span className='spanInfo'>Teléfono Parqueadero: </span> {userData?.cellphoneParking}</p>
               <p><span className='spanInfo'>Hora inicio: </span> {userData?.hourStart}</p>
               <p><span className='spanInfo'>Hora Fin: </span> {userData?.hourEnd}</p>
             </div>
@@ -106,7 +235,7 @@ export const ProfileParking = () => {
           </div>
           <div className="contFuncBtns">
             <button onClick={handleEditClick}>Actualizar Información</button>
-            <button>Cambiar Contraseña</button>
+            <button onClick={handleEditPassword}>Cambiar Contraseña</button>
           </div>
 
         </main>

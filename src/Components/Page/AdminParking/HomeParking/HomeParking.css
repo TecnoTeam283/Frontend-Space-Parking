@@ -227,83 +227,27 @@ body{
 }
 
 
+/* Estilos para las alertas swamalert */
 
-
-/* -------------- */
-/* .all{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly;
+.titleUpdatePass{
+    color: #04BF9D;
 }
 
-.contGroup{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .form__group {
-    position: relative;
-    padding: 20px 20px 0;
-    width: 50%;
-    max-width: 90%;
-    overflow: hidden;
+.btnUpdatePass {
+    background: linear-gradient(to right, #04BF9D, #D5E5F2)!important;
+    color: black !important;
+}
 
-  }
-  
-  .form__field {
-    font-family: inherit;
-    width: 100%;
-    border: none;
-    border-bottom: 2px solid #9b9b9b;
-    outline: 0;
-    font-size: 17px;
-    color: #000000;
-    padding: 7px 0;
-    background: transparent;
-    transition: border-color 0.2s;
-  }
-  
-  .form__field::placeholder {
-    color: transparent;
-  }
-  
-  .form__field:placeholder-shown ~ .form__label {
-    font-size: 17px;
-    cursor: text;
-    top: 70%;
-  }
-  
-  .form__label {
-    position: absolute;
-    top: 60%;
-    display: block;
-    transition: 0.2s;
-    font-size: 17px;
-    color: #7b7b7b;
-    pointer-events: none;
-  }
-  
-  .form__field:focus {
-    border-width: 2px;
-    border-image: linear-gradient(to right, #04D9D9, #04BF9D);
-    border-image-slice: 1;
-  }
-  
-  .form__field:focus ~ .form__label {
-    position: absolute;
-    top: 30%;
-    display: block;
-    transition: 0.2s;
-    font-size: 17px;
-    color: #04BF9D;
-    font-weight: 700;
-  }
-  
-  
-  .form__field:required, .form__field:invalid {
-    box-shadow: none;
-  }  */
+.btnUpdatePass:hover{
+    background: linear-gradient(to right, #000000, #04BF9D) !important;
+    color: #ffffff !important;
+}
+
+/* Alerta incorrecta */
+.titleUpdateIncorrect{
+    color: red;
+}
+
+.btnIncorrectPass{
+    background: linear-gradient(to right, #000000, #d62d13) !important;
+}

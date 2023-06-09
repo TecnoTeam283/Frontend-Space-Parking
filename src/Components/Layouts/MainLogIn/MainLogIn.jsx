@@ -16,8 +16,8 @@ export const MainLogIn = () => {
     const incorrect = () =>{
         Swal.fire({
             icon: 'error',
-            title: 'Oops...',
-            text: 'Datos incorrectos',
+            title: 'Error',
+            text: 'Verifica los datos',
             // footer: '<a href="">Why do I have this issue?</a>'
           })
     }
@@ -104,12 +104,11 @@ export const MainLogIn = () => {
             const response = await axios.post("http://localhost:5000/api/users/login", Usuario);
             updateUserData(response.data);
             if (typerole === '5') {
-              // console.log(response.data);
               navigate(`/HomeUser/`);
             }else {
               navigate(`/HomeParking/`);
               // updateUserData(response.data);
-              // console.log(response.data);
+              console.log(response.data);
             }
             correct()
           } catch (error) {
@@ -182,7 +181,7 @@ export const MainLogIn = () => {
             {/* <form onSubmit={(e) => onSubmit(e)} id="login" action=""> */}
             <form onSubmit={(e) => getData(e)} id="login" action="">
                 <h1 className='titleLogin'>Inicia Sesión</h1>
-                <input onChange={(e) => onChange(e)} name='email' className='inputLogin' id="newUser" type="text" placeholder="Correo" />
+                <input onChange={(e) => onChange(e)} name='email' className='inputLogin' id="newUser" type="text" placeholder="Correo" required />
                 <input onChange={(e) => onChange(e)} name='password' required className='inputLogin' id="newPassword" type="password" placeholder="Contraseña" />
                 <button>Inicia Sesión</button>
                     <p className='chose'>O</p>

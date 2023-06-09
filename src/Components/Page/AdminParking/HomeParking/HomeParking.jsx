@@ -12,7 +12,7 @@ export const HomeParking = () => {
   // const [number, setNumber] = useState(2);
   const [isOpenStates, setIsOpenStates] = useState(false);
   const [stateSelected, setState] = useState('');
-  console.log(userData);
+  // console.log(userData);
 
   const openModalState = (stateCircle) => {
     setIsOpenStates(true);
