@@ -14,7 +14,7 @@ export const HomeUser = () => {
   // RENDERIZADO DE PARQUEADREOS 
   const [collection, setCollection] = useState([]);
 
-  const apiGetParkigns = "http://localhost:5000/api/users/getParking"
+  const apiGetParkigns = "https://backend-space-parking.onrender.com/api/users/getParking"
 
 
   useEffect(() =>{

@@ -7,14 +7,6 @@ import { MapCreate } from '../../UI/MapCreate/MapCreate';
 
 export const ModalParking = ({isOpen, onRequestClose}) => {
 
-
-
-
-
-
-
-
-
   // Alerta creacion de cuenta
   const accountCreate = () =>{
     Swal.fire({
@@ -59,7 +51,7 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
     };
     // setLoading(true)
     try{
-      const response = await axios.post("http://localhost:5000/api/users/registerParking", UsuarioParking)
+      const response = await axios.post("https://backend-space-parking.onrender.com/api/users/registerParking", UsuarioParking)
       console.log(response.data);
       accountCreate()
       // uploadCloud(UsuarioParking.idUserParking)

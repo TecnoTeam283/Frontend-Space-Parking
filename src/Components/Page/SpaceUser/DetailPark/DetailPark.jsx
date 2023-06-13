@@ -20,7 +20,7 @@ export const DetailPark = () => {
     const getUser = async () => {
       try {
         if (decodedEmail) {
-          const response = await axios.post('http://localhost:5000/api/users/meUserParking', { email: decodedEmail });
+          const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUserParking', { email: decodedEmail });
           // console.log(response.data);
           setDataParking(response.data);
         }
@@ -95,7 +95,7 @@ export const DetailPark = () => {
         };
     
         try {
-          await axios.post("http://localhost:5000/api/users/createBooking", bookingData);
+          await axios.post("https://backend-space-parking.onrender.com/api/users/createBooking", bookingData);
           correctBooking()
     
         } catch (error) {

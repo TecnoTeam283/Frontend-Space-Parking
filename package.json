@@ -2,6 +2,7 @@
   "name": "spaceparking",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://backend-space-parking.onrender.com",
   "dependencies": {
     "@googlemaps/react-wrapper": "^1.1.35",
     "@testing-library/react": "^13.4.0",

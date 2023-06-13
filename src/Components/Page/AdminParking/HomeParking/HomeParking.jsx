@@ -19,7 +19,7 @@ export const HomeParking = () => {
   const getSpaces = async () => {
     try {
       if (userData?.idUserParking) {
-        const response = await axios.get(`http://localhost:5000/api/users/getSpacesById/${userData.idUserParking}`);
+        const response = await axios.get(`https://backend-space-parking.onrender.com/api/users/getSpacesById/${userData.idUserParking}`);
         setSpaces(response.data)
       }
     } catch (error) {

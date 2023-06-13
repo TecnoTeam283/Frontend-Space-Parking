@@ -140,7 +140,7 @@ export const ProfileUser = () => {
       };
 
       try {
-        await axios.patch(`http://localhost:5000/api/users/updateUser/${userData.idUser}`, User);
+        await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUser/${userData.idUser}`, User);
         getUser()
         console.log(User);
         setIsEditing(false);
@@ -155,7 +155,7 @@ export const ProfileUser = () => {
  const getUser = async () => {
   try {
     if (userData?.email) {
-      const response = await axios.post('http://localhost:5000/api/users/meUser', { email: userData?.email });
+      const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUser', { email: userData?.email });
       updateUserData(response.data);
     }
   } catch (error) {
@@ -173,7 +173,7 @@ const UpdatePassword = async(e) =>{
     currentPassword, email, newPassword
   };
   try {
-    axios.patch('http://localhost:5000/api/users/updatePassword', User)
+    axios.patch('https://backend-space-parking.onrender.com/api/users/updatePassword', User)
     correctUpdatePass();
     setEditingPassword(false)
 
