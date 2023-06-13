@@ -1,30 +1,42 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Logo } from '../../../UI/Logo/Logo';
 import { UserDataContext } from '../../Context/UserDataProvider';
 import styles from './HomeParking.css';
 import { Circle } from '../../../UI/Circle/Circle';
 import { Link } from 'react-router-dom';
 import { ModalState } from '../../../Layouts/ModalState/ModalState';
-
+import axios from 'axios';
 export const HomeParking = () => {
   const { userData } = useContext(UserDataContext);
 
-  // const [number, setNumber] = useState(2);
+
   const [isOpenStates, setIsOpenStates] = useState(false);
   const [stateSelected, setState] = useState('');
-  // console.log(userData);
+  const [spaces, setSpaces] = useState([]);
+  
 
-  const openModalState = (stateCircle) => {
+  // Obtener espacios
+  const getSpaces = async () => {
+    try {
+      if (userData?.idUserParking) {
+        const response = await axios.get(`http://localhost:5000/api/users/getSpacesById/${userData.idUserParking}`);
+        setSpaces(response.data)
+      }
+    } catch (error) {
+    }
+  };
+
+  useEffect(() => {
+    getSpaces();
+  });
+
+  const openModalState = (spaceSelected) => {
     setIsOpenStates(true);
-    setState(stateCircle);
+    setState(spaceSelected);
   };
 
   const handleCloseState = () => {
     setIsOpenStates(false);
-  };
-
-  const handleStateChange = (newState) => {
-    setState(newState);
   };
 
   const [showDiv, setShowDiv] = useState(false);
@@ -32,18 +44,11 @@ export const HomeParking = () => {
     setShowDiv(!showDiv);
   };
 
-  const capacityStr = userData?.capacity;
-  const capacity = parseInt(capacityStr);
+  // console.log(spaces.length);
 
   return (
     <div id='homeParking'>
-      <ModalState onStateChange={handleStateChange}
-        actualState={stateSelected}
-        numberState={0}
-        isOpen={isOpenStates}
-        onRequestClose={handleCloseState}
-        closeModal={handleCloseState}
-      />
+      <ModalState actualState={stateSelected} numberState={0} isOpen={isOpenStates} onRequestClose={handleCloseState}closeModal={handleCloseState}/>
       <header className='headerParking'>
         <Logo to='/HomeParking' idLogo='logoHomeUser' />
         <h3 id='nameUser'>{userData?.nameParking}</h3>
@@ -84,15 +89,14 @@ export const HomeParking = () => {
           </div>
         </section>
         <aside className='availabilityMap'>
-          {Array.from({ length: capacity }, (_, index) => (
-            <Circle
-              number={0}
-              state={stateSelected}
-              // isSelected={stateSelected === 'reserved'}
-              onClick={() => openModalState(stateSelected)}
-              key={index}
-            />
-          ))}
+        {spaces.map((space) => (
+          <Circle
+            state={space.state}
+            onClick={() => openModalState(space)}
+            key={space._id} // Utiliza un identificador único para la clave de cada componente
+            id={space._id} // Pasa el ID del espacio como una prop
+          />
+        ))}
         </aside>
       </main>
     </div>

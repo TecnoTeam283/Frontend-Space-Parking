@@ -11,7 +11,7 @@ import { HomeUser } from './Components/Page/SpaceUser/HomeUser/HomeUser';
 import { ProfileUser } from './Components/Page/SpaceUser/ProfileUser/ProfileUser';
 import { HomeParking } from './Components/Page/AdminParking/HomeParking/HomeParking';
 import { ProfileParking } from './Components/Page/AdminParking/ProfileParking/ProfileParking';
-
+import { DetailPark } from './Components/Page/SpaceUser/DetailPark/DetailPark';
 
 function App() {
 
@@ -27,6 +27,7 @@ function App() {
         <Route path="/RecoverPassword" element={<RecoverPassword/>}></Route>
         <Route path="/ProfileUser" element={<ProfileUser/>}></Route>
         <Route path="/ProfileParking" element={<ProfileParking/>}></Route>
+        <Route path="/DetailParking" element={<DetailPark/>}></Route>
 
         <Route path="*" element="Not Found"></Route>
       </Routes>

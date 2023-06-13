@@ -126,7 +126,6 @@ body{
 }
 
 .card h3{
-  margin-left: 10px;
   font-size: 2.3rem;
   background: -webkit-linear-gradient(#000000, #04D9D9);
   -webkit-text-fill-color: transparent;
@@ -643,7 +642,7 @@ height: 70%;
 /* Este es el overlay de las modales hechas por react, es un contenedor, aqui lo usamos
  para especificar su posicionamiento sobre otros elementos */
 .ReactModal__Overlay {
-z-index: 2000;
+z-index: 1000;
 }
 
 
@@ -825,6 +824,21 @@ z-index: 2000;
   box-shadow: none;
 } 
 
+#select-platform{
+  width: 17%;
+  height: 2rem;
+  font-size: 17px;
+  align-self: center;
+  position: absolute;
+  border: solid 1px #04BF9D;
+  border-radius: 10px;
+  color: #7b7b7b;
+  right: 5%;
+  bottom: 54%;
+}
+
+
+
 
 /* BUTTON CREAR CUENTA  */
 
@@ -893,8 +907,9 @@ z-index: 2000;
 }
 
 
-
-
+.leaflet-container{
+  height: 100vh;
+}
 
 /* Media queries */
 

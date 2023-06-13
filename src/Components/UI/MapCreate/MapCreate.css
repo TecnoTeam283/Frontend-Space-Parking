@@ -1,0 +1,8 @@
+/* MapCreate.css */
+
+/* Estilos para el contenedor del mapa */
+
+.leaflet-container{
+    width: 100vw;
+    height: 100vh;
+}

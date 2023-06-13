@@ -1,9 +1,74 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useContext, useState } from 'react'
 import Modal from 'react-modal'
-
+import moment from 'moment-timezone';
+import { UserDataContext } from '../../Page/Context/UserDataProvider';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 export const ModalDetails = ({onRequestClose,isOpen,functionGetItem}) => {
 
-console.log(functionGetItem);
+const { userData} = useContext(UserDataContext);
+const navigate = useNavigate()
+
+const correctBooking = () =>{
+  Swal.fire({
+      icon: 'success',
+      title: '¡Excelente!',
+      html: 'Tu reserva se ha realizado correctamente',
+      showConfirmButton: true,
+      confirmButtonText: 'OK',
+      customClass: {
+        title: 'titleUpdatePass',
+        content: 'textUpdatePass',
+        confirmButton: 'btnUpdatePass',
+      },
+    }).then((result) => {
+      if (result.isConfirmed) {
+        navigate(`/`);
+      }
+    });
+  };
+
+const incorrectBooking = () =>{
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Ya tienes una reserva en progreso',
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'titleUpdateIncorrect',
+          content: 'textUpdatePass',
+          confirmButton: 'btnIncorrectPass',
+        },
+      })
+}
+
+const createBooking = async () => {
+
+  const currentDate = moment(); // Obtiene la fecha y hora actual
+  const formattedDate = currentDate.tz('America/Bogota').format('YYYY-MM-DD HH:mm:ss');
+ 
+    const bookingData = {
+      name: `${userData?.placa}-${userData?.name}`,
+      nitParking: functionGetItem?.nit, 
+      idUser: userData?.idUser,
+      dateStartBooking: formattedDate,  // Fecha de inicio de la reserva en formato ISO 8601
+      duration: 30, // Duración de la reserva en minutos
+    };
+
+    try {
+      await axios.post("http://localhost:5000/api/users/createBooking", bookingData);
+      alert('Reserva Realizada')
+      correctBooking()
+
+    } catch (error) {
+      incorrectBooking()
+      // incorrect()
+    }
+  }
+
+
+
 
   return (
     <Modal getItem={functionGetItem}  ariaHideApp={false} className="modalDetails" onRequestClose={onRequestClose} isOpen={isOpen}>
@@ -30,7 +95,7 @@ console.log(functionGetItem);
                 <p> <span>Horarios:</span>{functionGetItem?.hourStart} - {functionGetItem?.hourEnd}</p>
                 <p> <span>Precio Moto:</span>$ {functionGetItem?.priceMotorcycle} COP</p>
                 <p> <span>Precio Carro:</span>$ {functionGetItem?.priceCar} COP </p>
-                <button className='btnBooking'>Reservar</button>
+                <button onClick={createBooking} className='btnBooking'>Reservar</button>
             </div>
         </div>
 

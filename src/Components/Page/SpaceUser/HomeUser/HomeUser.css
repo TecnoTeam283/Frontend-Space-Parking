@@ -236,9 +236,7 @@ body{
     margin-right: 10px;
 }
 
-.btnBooking{
-    align-self: center;
-}
+
 
 /* DIV perfil y cerrar sesion */
 .optionsUser{
@@ -297,6 +295,7 @@ body{
 .contBtns{
     width: 50%;
     display: flex;
+    align-items: center;
     justify-content: space-evenly;
 }
 
@@ -381,6 +380,169 @@ body{
 .vehicle > p> span{
     color: #04BF9D;
     font-size: 1.2rem;
+}
+
+
+
+/* estilos pagina detalles parqueadero */
+
+.detailParkPage{
+    width: 100vw;
+    height: 100vh;
+}
+
+
+#mainDetailPark{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contInformation{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#nameParkingDetail{
+    margin: 1rem;
+}
+
+.contImagesParking{
+    width: 92%;
+    height: 65%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#imgPrinParking{
+    width: 50%;
+    height: 21.5rem;
+    align-self: center;
+    margin-bottom: 10px
+}
+
+
+.contImgPequeñas{
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    overflow: hidden;
+}
+
+.peqImg{
+    width: 45%;
+    height: 49%;
+    overflow: hidden;
+}
+
+.imgModalParking{
+    width: 100%;
+    height: 10rem;
+}
+.down{
+    margin-top: 10px;
+}
+
+
+.cardDataParking{
+    width: 40%;
+    height: auto;
+    display: flex;
+    border: solid ;
+    flex-direction: column;
+    font-size: 1.2rem;
+    /* align-self: last baseline; */
+    justify-content: space-evenly;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 12px;
+    padding: 24px;
+    /* margin-right: 4rem;
+    margin-top: 1rem; */
+    margin: 1rem 4.5rem 3rem 0rem ;
+    box-shadow: rgba(0, 0, 0, 0.335) 0px 6px 16px
+}
+
+.contInfoParking{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.anfitrion{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 2rem;
+    justify-content: space-evenly;
+}
+
+.anfitrion> h2{
+    color: #04BF9D;
+}
+
+.anfitrion > p > span{
+    color: #04BF9D;
+}
+
+.cardDataParking > p{
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.pTittle{
+    color: #04BF9D;
+}
+
+.pTittle > span{
+    color: #000000;
+}
+
+.priceSpan{
+    font-weight: 400;
+}
+
+
+.horarios{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+#pHorarios{
+    color: #04BF9D;
+}
+
+.open{
+    border: solid 2px rgb(174, 174, 174);
+    border-radius: 10px;
+    padding: 4px;
+}
+
+
+.btnBooking{
+    align-self: center;
+    background: linear-gradient(to right, #04BF9D, #f6f6f6);
+    border-radius: 20px;
+    border: 1px solid #000000;
+    color: #000000;
+}
+.btnBooking:hover{
+    background: linear-gradient(to right, #000000, #04BF9D);
+    color: white;
 }
 
 @media screen and (max-width: 600px) {

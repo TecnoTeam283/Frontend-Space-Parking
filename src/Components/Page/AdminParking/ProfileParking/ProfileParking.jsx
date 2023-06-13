@@ -166,7 +166,7 @@ const UpdatePassword = async(e) =>{
 
   useEffect(() => {
     getUser();
-  }, [userData]);
+  });
 
   return (
     <div className='parkingProfile'>

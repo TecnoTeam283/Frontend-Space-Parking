@@ -3,8 +3,13 @@ import Modal from 'react-modal'
 import { FormGroup } from '../../UI/FormGroup/FormGroup'
 import axios from 'axios';
 import Swal from 'sweetalert2'
+import { MapCreate } from '../../UI/MapCreate/MapCreate';
 
 export const ModalParking = ({isOpen, onRequestClose}) => {
+
+
+
+
 
 
 
@@ -100,7 +105,6 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
                 <FormGroup onChange={(e) => onChange(e)} nameInput="priceCar" contLabel="Hora Carro" place="Hora Carro" inputType="number"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="priceMotorcycle" contLabel="Hora Moto" place="Hora Moto" inputType="number"/>
                 <FormGroup  nameInput="Images" contLabel="Imagenes Parqueadero" place="Imagenes Parqueadero" inputType="file"/>
-                
                 </div>
 
                 

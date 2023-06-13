@@ -5,17 +5,33 @@ import { Logo } from '../../../UI/Logo/Logo';
 import { UserDataContext} from '../../Context/UserDataProvider'
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import {Link, useNavigate } from 'react-router-dom';
 
 
 
 // Obtencion de los datos del ususario
 
 export const ProfileUser = () => {
+  // Mantenemos Actualizando el userdata del usecontext, para mantener la pagina actulizada
   const {updateUserData} = useContext(UserDataContext);
+  const navigate = useNavigate()
   const {userData} = useContext(UserDataContext);
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingPassword, setEditingPassword] = useState(false);
   const [name, setName] = useState(userData?.name);
   const [cellphone, setCellphone] = useState(userData?.cellphone);
+  // Cambio de Contraseña
+  const [currentPassword, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+
+
+  // Mostrar Div del perfil
+  const [showDiv, setShowDiv] = useState(false);
+
+  const toggleDiv = () => {
+    setShowDiv(!showDiv);
+  };
 
 
   // Alertas de actualizacion de datos 
@@ -48,6 +64,40 @@ export const ProfileUser = () => {
         })
   }
 
+  // Alertas Cambio de contraseña
+  const correctUpdatePass = () =>{
+    Swal.fire({
+        icon: 'success',
+        title: '¡Excelente!',
+        html: 'Contraseña Actualizada <br> Debes Volver A Iniciar Sesion',
+        showConfirmButton: true,
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'titleUpdatePass',
+          content: 'textUpdatePass',
+          confirmButton: 'btnUpdatePass',
+        },
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate(`/`);
+        }
+      });
+    };
+
+  const incorrectUpPassword = () =>{
+      Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Datos incorrectos',
+          confirmButtonText: 'OK',
+          customClass: {
+            title: 'titleUpdateIncorrect',
+            content: 'textUpdatePass',
+            confirmButton: 'btnIncorrectPass',
+          },
+        })
+  }
+
   
   // Asignar imagen dependiendo el tipo de vehiculo
   
@@ -64,9 +114,14 @@ export const ProfileUser = () => {
       setIsEditing(true);
       // console.log(userData);
     };
+
+    const handleEditPassword = ()=>{
+      setEditingPassword(true)
+    }
   
     const handleCancelClick = () => {
       setIsEditing(false);
+      setEditingPassword(false);
     };
 
 
@@ -86,7 +141,6 @@ export const ProfileUser = () => {
 
       try {
         await axios.patch(`http://localhost:5000/api/users/updateUser/${userData.idUser}`, User);
-        // alert("updated user")
         getUser()
         console.log(User);
         setIsEditing(false);
@@ -110,7 +164,23 @@ export const ProfileUser = () => {
 
 useEffect(() => {
   getUser();
-}, [userData]);
+});
+
+// Función Actualizar contraseña
+const UpdatePassword = async(e) =>{
+  e.preventDefault()
+  const User = {
+    currentPassword, email, newPassword
+  };
+  try {
+    axios.patch('http://localhost:5000/api/users/updatePassword', User)
+    correctUpdatePass();
+    setEditingPassword(false)
+
+  } catch (error) {
+    incorrectUpPassword()
+  }
+}
   
   
     return (
@@ -120,23 +190,40 @@ useEffect(() => {
             
           <h3 >Datos Personales</h3>
           <i className='icon-bell'></i>
-          <div className="contIcon">
-              <i  className='icon-user'></i>
+          <div onClick={toggleDiv} className='contIcon'>
+          <i className='icon-user'></i>
+        </div>
+        {showDiv && (
+          <div style={{ display: 'block' }} className='optionsUser'>
+            <Link className='linkOptions' to='/HomeUser'>Home</Link>
+            <hr />
+            <Link className='linkOptions' to='/'>Cerrar Sesión</Link>
           </div>
+        )
+        }
         </header>
         {isEditing ? (
           
           <form className="containerInputs" onSubmit={(e) => updateData(e)} action="">
             <FormGroup value={name} onChange={(e) => setName(e.target.value)} nameInput="name" inputType="text" contLabel="Nombre" />
             <FormGroup value={cellphone} onChange={(e) => setCellphone(e.target.value)} nameInput="cellphone" inputType="number" contLabel="Teléfono" />
-            {/* <FormGroup onChange={handlePhoneChange} inputType="number" contLabel="Teléfono" value={phone} /> */}
-    
+            
             <div className="contBtns">
               <button type='submit' >Actualizar</button>
               <button onClick={handleCancelClick}>Cancelar</button>
             </div>
           </form>
           
+        ):isEditingPassword ? (
+          <form className='containerInputs' onSubmit={(e) => UpdatePassword(e)} action=''>
+            <FormGroup onChange={(e) => setPassword(e.target.value)} nameInput="currentPassword" inputType="password" contLabel="Contraseña Actual" />
+            <FormGroup onChange={(e) => setEmail(e.target.value)} nameInput="email" inputType="email" contLabel="Correo" />
+            <FormGroup onChange={(e) => setNewPassword(e.target.value)} nameInput="newPassword" inputType="text" contLabel="Nueva Contraseña" />
+            <div className="contFuncBtns">
+                <button type='submit'>Actualizar Contraseña</button>
+                <button onClick={()=> setEditingPassword(false)}>Cancelar</button>
+              </div>
+          </form>
         ) : (
 
         <div className="containerall">        
@@ -158,7 +245,11 @@ useEffect(() => {
               </div>
             </div>
           </div>
+          <div className="contBtns">
+
             <button onClick={handleEditClick}>Actualizar Información</button>
+            <button onClick={handleEditPassword}>Cambiar Contraseña</button>
+          </div>
         </div>
         )}
       </div>

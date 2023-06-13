@@ -3,16 +3,13 @@ import styles from "./HomeUser.css"
 import { CardParking } from '../../../Layouts/CardParking/CardParking'
 import { UserDataContext} from '../../Context/UserDataProvider'
 import { Logo } from '../../../UI/Logo/Logo'
-import { ModalDetails } from '../../../Layouts/MoldalDetails/ModalDetails'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-
-// import { nombrePrueba } from '../../../Layouts/MainLogIn/MainLogIn.jsx';
 
 
 export const HomeUser = () => {
   const { userData} = useContext(UserDataContext);
-  // console.log(userData.name);
+  const navigate = useNavigate();
 
   // RENDERIZADO DE PARQUEADREOS 
   const [collection, setCollection] = useState([]);
@@ -34,21 +31,10 @@ export const HomeUser = () => {
   }, []);
 
 
-
-
-  // Modal detalles parqueadero
-  const [isOpenDetail, setIsOpenDetail] = useState(false);
-  const [itemSelected, setItem] = useState(false);
-
-
     const isOpen = (item) => {
-        setIsOpenDetail(true);
-        setItem(item)
-      };
-    
-      const handleCloseDetail = () => {
-        setIsOpenDetail(false);
-      };
+      const encodedEmail = btoa(item.email);
+      navigate(`/DetailParking?email=${encodedEmail}`);
+    }
 
   // Visualizacion opciones perfil cerrar cuenta
 
@@ -61,7 +47,7 @@ export const HomeUser = () => {
   // console.log(styles);
   return (
     <div id='HomeUser'>
-      <ModalDetails functionGetItem={itemSelected} isOpen={isOpenDetail}  onRequestClose={handleCloseDetail} closeModal={handleCloseDetail}/>
+      {/* <ModalDetails functionGetItem={itemSelected} isOpen={isOpenDetail}  onRequestClose={handleCloseDetail} closeModal={handleCloseDetail}/> */}
         <header className='headerUser'>
           <Logo to="/HomeUser" idLogo="logoHomeUser"/>
             
@@ -84,10 +70,11 @@ export const HomeUser = () => {
 
         <main id='mainHomeUser'>
           <div className="containerParkings">
+            
             {collection.map((item) => (
               <CardParking
               key={item.idUserParking}
-              showModal={() => isOpen(item)}
+              onclick={() => {isOpen(item)}}
               priceParking={`${item.priceMotorcycle} - $${item.priceCar}`}
               adressParking={item.address}
               nameParking={item.nameParking}

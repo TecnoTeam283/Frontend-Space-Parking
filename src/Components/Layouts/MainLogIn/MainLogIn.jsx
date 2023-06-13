@@ -46,16 +46,6 @@ export const MainLogIn = () => {
         }
       });
     };
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 
      //Connect Backend and Frontend
      // const navigate = useNavigate();
