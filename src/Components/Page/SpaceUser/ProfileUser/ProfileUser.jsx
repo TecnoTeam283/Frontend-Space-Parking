@@ -31,6 +31,7 @@ export const ProfileUser = () => {
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
+    console.log(userData?.cellphone);
   };
 
 
@@ -206,7 +207,7 @@ const UpdatePassword = async(e) =>{
           
           <form className="containerInputs" onSubmit={(e) => updateData(e)} action="">
             <FormGroup value={name} onChange={(e) => setName(e.target.value)} nameInput="name" inputType="text" contLabel="Nombre" />
-            <FormGroup value={cellphone} onChange={(e) => setCellphone(e.target.value)} nameInput="cellphone" inputType="number" contLabel="Teléfono" />
+            <FormGroup value={userData.cellphone} onChange={(e) => setCellphone(e.target.value)} nameInput="cellphone" inputType="number" contLabel="Teléfono" />
             
             <div className="contBtns">
               <button type='submit' >Actualizar</button>

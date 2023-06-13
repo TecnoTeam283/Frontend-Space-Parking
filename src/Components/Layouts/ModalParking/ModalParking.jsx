@@ -40,7 +40,7 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
 
   const { name, email, cellphone, idUserParking, password, nameParking, address, cellphoneParking, nit, hourStart, hourEnd, capacity, priceCar, priceMotorcycle } = inputs;
 
-  const onChange = (e) => {
+  const onSaveData = (e) => {
     setInputs({...inputs, [e.target.name]: e.target.value})
   };
 
@@ -72,14 +72,14 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
                 <h3 >Datos Personales</h3>
 
                 <div className='contGroup'>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="name" contLabel="Nombre Completo" place="Nombre" inputType="text"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="email" contLabel="Correo" place="Correo" inputType="email"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="cellphone" contLabel="Telefono" place="Telefono" inputType="number"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="idUserParking" contLabel="No. Identificacion" place="No. Identificacion" inputType="number"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="password" contLabel="Contraseña" place="Contraseña" inputType="password"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="name" contLabel="Nombre Completo" place="Nombre" inputType="text"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="email" contLabel="Correo" place="Correo" inputType="email"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="cellphone" contLabel="Telefono" place="Telefono" inputType="number"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="idUserParking" contLabel="No. Identificacion" place="No. Identificacion" inputType="number"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="password" contLabel="Contraseña" place="Contraseña" inputType="password"/>
                 <FormGroup contLabel="Confirmar Contraseña" place="Contraseña" inputType="password"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="hourStart" contLabel="Hora Inicio" place="Hora Inicio" inputType="time"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="hourEnd" contLabel="Hora Fin" place="Hora Fin" inputType="time"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="hourStart" contLabel="Hora Inicio" place="Hora Inicio" inputType="time"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="hourEnd" contLabel="Hora Fin" place="Hora Fin" inputType="time"/>
                 </div>
  
               </div>
@@ -89,13 +89,13 @@ export const ModalParking = ({isOpen, onRequestClose}) => {
                 <h3>Datos Parqueadero</h3>
 
                 <div className='contGroup'>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="nameParking" contLabel="Nombre Parqueadero" place="Nombre Parqueadero" inputType="text"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="address" contLabel="Dirección" place="Dirección" inputType="text"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="cellphoneParking" contLabel="Telefono Parqueadero" place="Telefono Parqueadero" inputType="number"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="nit" contLabel="NIT." place="NIT." inputType="text"/>
-                <FormGroup onChange={(e) => onChange(e)} min="10" nameInput="capacity" contLabel="Capacidad Maxima" place="Capacidad Maxima" inputType="number"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="priceCar" contLabel="Hora Carro" place="Hora Carro" inputType="number"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="priceMotorcycle" contLabel="Hora Moto" place="Hora Moto" inputType="number"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="nameParking" contLabel="Nombre Parqueadero" place="Nombre Parqueadero" inputType="text"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="address" contLabel="Dirección" place="Dirección" inputType="text"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="cellphoneParking" contLabel="Telefono Parqueadero" place="Telefono Parqueadero" inputType="number"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="nit" contLabel="NIT." place="NIT." inputType="text"/>
+                <FormGroup onChange={(e) => onSaveData(e)} min="10" nameInput="capacity" contLabel="Capacidad Maxima" place="Capacidad Maxima" inputType="number"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="priceCar" contLabel="Hora Carro" place="Hora Carro" inputType="number"/>
+                <FormGroup onChange={(e) => onSaveData(e)} nameInput="priceMotorcycle" contLabel="Hora Moto" place="Hora Moto" inputType="number"/>
                 <FormGroup  nameInput="Images" contLabel="Imagenes Parqueadero" place="Imagenes Parqueadero" inputType="file"/>
                 </div>
 

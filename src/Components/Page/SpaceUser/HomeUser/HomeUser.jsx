@@ -9,6 +9,7 @@ import axios from 'axios'
 
 export const HomeUser = () => {
   const { userData} = useContext(UserDataContext);
+  const [search, setSearch] = useState("");
   const navigate = useNavigate();
 
   // RENDERIZADO DE PARQUEADREOS 
@@ -17,18 +18,45 @@ export const HomeUser = () => {
   const apiGetParkigns = "https://backend-space-parking.onrender.com/api/users/getParking"
 
 
-  useEffect(() =>{
-    const getCollection = async () =>{
-        try{
-          const answer = await axios.get(apiGetParkigns);
-          setCollection(answer.data);
-          // console.log(answer.data);
-        }catch (error) {
+
+  const getCollection = async () => {
+    try {
+      const answer = await axios.get(apiGetParkigns);
+      setCollection(answer.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getCollection();
+  }, []);
+
+  const SearchParking = (event)=>{
+    const searchValue = event.target.value
+    setSearch(searchValue)
+
+    if (searchValue ==="") {
+      getCollection()
+    }
+    else{
+      const searchingParkings = async () => {
+        try {
+          // const searching = await axios.post("https://backend-space-parking.onrender.com/api/users/search", {searchTerm: searchValue})
+          const searching = await axios.post("http://localhost:5000/api/users/search", {searchTerm: searchValue})
+          setCollection(searching.data)
+          console.log("entra");
+          console.log(searching.data);
+        } catch (error) {
           console.log(error);
         }
-    };
-        getCollection()
-  }, []);
+
+      }
+    
+      searchingParkings()
+      
+    }
+  }
 
 
     const isOpen = (item) => {
@@ -52,7 +80,7 @@ export const HomeUser = () => {
           <Logo to="/HomeUser" idLogo="logoHomeUser"/>
             
           <h3 id='nameUser'>{userData?.name}</h3>
-          <input placeholder='Buscar Parqueadero' type="text" name="" id="inputSearch" />
+          <input onKeyUp={SearchParking} placeholder='Buscar Parqueadero' type="text" name="search" id="inputSearch" />
 
           <i className='icon-bell'></i>
           <div onClick={toggleDiv}className="contIcon">
