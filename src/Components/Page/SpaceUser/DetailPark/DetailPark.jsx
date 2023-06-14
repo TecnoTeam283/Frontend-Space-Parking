@@ -90,16 +90,21 @@ export const DetailPark = () => {
           name: `${userData?.placa}-${userData?.name}`,
           nitParking: dataParking?.nit, 
           idUser: userData?.idUser,
+          userName: userData?.name,
+          cellphone: userData?.cellphone,
           dateStartBooking: formattedDate,  // Fecha de inicio de la reserva en formato ISO 8601
           duration: 30, // Duración de la reserva en minutos
         };
     
         try {
           await axios.post("https://backend-space-parking.onrender.com/api/users/createBooking", bookingData);
+          // await axios.post("http://localhost:5000/api/users/createBooking", bookingData);
           correctBooking()
+        
     
         } catch (error) {
           incorrectBooking()
+          console.log(bookingData);
           // incorrect()
         }
       }

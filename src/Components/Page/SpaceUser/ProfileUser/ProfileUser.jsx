@@ -31,8 +31,14 @@ export const ProfileUser = () => {
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
-    console.log(userData?.cellphone);
   };
+// Validacion de que los campos se guardan
+  useEffect(() => {
+    if (!name && !cellphone) {
+      setName(userData?.name);
+      setCellphone(userData?.cellphone);
+    }
+  }, [userData, cellphone, name]);
 
 
   // Alertas de actualizacion de datos 
@@ -139,9 +145,10 @@ export const ProfileUser = () => {
       const User = {
         name, cellphone
       };
-
+      
       try {
-        await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUser/${userData.idUser}`, User);
+        // console.log("entra");
+        await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUser/${userData?.idUser}`, User);
         getUser()
         console.log(User);
         setIsEditing(false);
@@ -207,7 +214,7 @@ const UpdatePassword = async(e) =>{
           
           <form className="containerInputs" onSubmit={(e) => updateData(e)} action="">
             <FormGroup value={name} onChange={(e) => setName(e.target.value)} nameInput="name" inputType="text" contLabel="Nombre" />
-            <FormGroup value={userData.cellphone} onChange={(e) => setCellphone(e.target.value)} nameInput="cellphone" inputType="number" contLabel="Teléfono" />
+            <FormGroup value={cellphone} onChange={(e) => setCellphone(e.target.value)} nameInput="cellphone" inputType="number" contLabel="Teléfono" />
             
             <div className="contBtns">
               <button type='submit' >Actualizar</button>

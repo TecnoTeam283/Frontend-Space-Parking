@@ -45,16 +45,13 @@ export const HomeUser = () => {
           // const searching = await axios.post("https://backend-space-parking.onrender.com/api/users/search", {searchTerm: searchValue})
           const searching = await axios.post("http://localhost:5000/api/users/search", {searchTerm: searchValue})
           setCollection(searching.data)
-          console.log("entra");
-          console.log(searching.data);
+          // console.log("entra");
+          // console.log(searching.data);
         } catch (error) {
           console.log(error);
         }
-
       }
-    
       searchingParkings()
-      
     }
   }
 
