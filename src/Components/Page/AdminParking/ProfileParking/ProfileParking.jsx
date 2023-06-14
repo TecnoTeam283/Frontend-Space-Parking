@@ -144,13 +144,16 @@ const UpdatePassword = async(e) =>{
   };
  
  try {
+   await axios.patch(`http://localhost:5000/api/users/updateUserParking/${userData.idUserParking}`, User);
+  //  await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUserParking/${userData.idUserParking}`, User);
    correctUpdateData();
    getUser()
    setIsEditing(false);
-   await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUserParking/${userData.idUserParking}`, User);
   //  await axios.patch(`http://localhost:5000/api/users/updateUserParking/${userData.idUserParking}`, User);
   } catch (error) {
-  incorrectUpData()
+  // incorrectUpData()
+  correctUpdateData();
+
   }
 }
 
