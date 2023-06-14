@@ -107,9 +107,11 @@ export const ProfileUser = () => {
   // Asignar imagen dependiendo el tipo de vehiculo
   
   const getImageSource = () => {
+    // console.log(vehicle);
     if (userData?.vehicle?.toUpperCase() === 'MOTO') {
       return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814136/SpaceParking/Moto.webp';
     } else {
+      console.log(userData);
       return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814081/SpaceParking/Carro.jpg';
     }
   };
@@ -117,7 +119,6 @@ export const ProfileUser = () => {
   
     const handleEditClick = () => {
       setIsEditing(true);
-      // console.log(userData);
     };
 
     const handleEditPassword = ()=>{
@@ -146,12 +147,12 @@ export const ProfileUser = () => {
       
       try {
         // console.log("entra");
-        await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUser/${userData?.idUser}`, User);
-        getUser()
+        // await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUser/${userData?.idUser}`, User);
         console.log(User);
+        await axios.patch(`http://localhost:5000/api/users/updateUser/${userData?.idUser}`, User);
+        getUser()
         setIsEditing(false);
         correctUpdateData();
-        
        } catch (error) {
        incorrectUpData()
      }
@@ -161,7 +162,7 @@ export const ProfileUser = () => {
  const getUser = async () => {
   try {
     if (userData?.email) {
-      const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUser', { email: userData?.email });
+      const response = await axios.post('http://localhost:5000/api/users/meUser', { email: userData?.email });
       updateUserData(response.data);
     }
   } catch (error) {
