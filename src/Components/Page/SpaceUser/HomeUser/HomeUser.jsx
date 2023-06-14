@@ -42,11 +42,8 @@ export const HomeUser = () => {
     else{
       const searchingParkings = async () => {
         try {
-          // const searching = await axios.post("https://backend-space-parking.onrender.com/api/users/search", {searchTerm: searchValue})
-          const searching = await axios.post("http://localhost:5000/api/users/search", {searchTerm: searchValue})
+          const searching = await axios.post("https://backend-space-parking.onrender.com/api/users/search", {searchTerm: searchValue})
           setCollection(searching.data)
-          // console.log("entra");
-          // console.log(searching.data);
         } catch (error) {
           console.log(error);
         }
@@ -79,7 +76,7 @@ export const HomeUser = () => {
           <h3 id='nameUser'>{userData?.name}</h3>
           <input onKeyUp={SearchParking} placeholder='Buscar Parqueadero' type="text" name="search" id="inputSearch" />
 
-          <i className='icon-bell'></i>
+          {/* <i className='icon-bell'></i> */}
           <div onClick={toggleDiv}className="contIcon">
               <i  className='icon-user'></i>
           </div>

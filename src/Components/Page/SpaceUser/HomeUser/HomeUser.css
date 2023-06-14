@@ -248,7 +248,7 @@ body{
     width: 15rem;
     /* height: 10rem; */
     background-color: white;
-    top: 13%;
+    top: 11%;
     right: 0%;
     z-index: 20;
 }
@@ -351,9 +351,7 @@ body{
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-
-    /* justify-content: space-evenly; */
-
+    justify-content: center;
 }
 
 .allVehicles > h2{
@@ -375,6 +373,7 @@ body{
 }
 .vehicle > p{
     font-size: 1.2rem;
+    overflow: hidden;
 }
 
 .vehicle > p> span{

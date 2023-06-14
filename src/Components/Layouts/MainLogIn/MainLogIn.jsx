@@ -93,12 +93,13 @@ export const MainLogIn = () => {
         try {
             const response = await axios.post("https://backend-space-parking.onrender.com/api/users/login", Usuario);
             updateUserData(response.data);
+            console.log(response.data);
             if (typerole === '5') {
               navigate(`/HomeUser/`);
             }else {
               navigate(`/HomeParking/`);
               // updateUserData(response.data);
-              console.log(response.data);
+              // console.log(response.data);
             }
             correct()
           } catch (error) {

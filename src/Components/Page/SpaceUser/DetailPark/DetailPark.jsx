@@ -8,6 +8,7 @@ import moment from 'moment-timezone';
 import Swal from 'sweetalert2';
 
 export const DetailPark = () => {
+  const { userData} = useContext(UserDataContext);
 
 
     // get data parking
@@ -16,7 +17,7 @@ export const DetailPark = () => {
     const encodedEmail = searchParams.get('email');
     const decodedEmail = encodedEmail ? atob(encodedEmail) : null;
     const [dataParking, setDataParking] = useState()
-
+    // const [cellphone, setCellphone] = useState(userData?.cellphone)
     const getUser = async () => {
       try {
         if (decodedEmail) {
@@ -42,12 +43,11 @@ export const DetailPark = () => {
     };
 
 
-    const { userData} = useContext(UserDataContext);
     const [showDiv, setShowDiv] = useState(false);
 
     const toggleDiv = () => {
       setShowDiv(!showDiv);
-      // console.log(dataParking);
+      console.log(userData);
     };
 
 
@@ -91,7 +91,7 @@ export const DetailPark = () => {
           nitParking: dataParking?.nit, 
           idUser: userData?.idUser,
           userName: userData?.name,
-          cellphone: userData?.cellphone,
+          cellphone: userData.phone,
           dateStartBooking: formattedDate,  // Fecha de inicio de la reserva en formato ISO 8601
           duration: 30, // Duración de la reserva en minutos
         };
@@ -116,7 +116,7 @@ export const DetailPark = () => {
         <Logo to="/HomeUser" idLogo="logoHomeUser"/>    
         <h3 id='nameUser'>{userData?.name}</h3>
           {/* <input placeholder='Buscar Parqueadero' type="text" name="" id="inputSearch" /> */}
-        <i className='icon-bell'></i>
+        {/* <i className='icon-bell'></i> */}
         <div onClick={toggleDiv}className="contIcon">
         <i  className='icon-user'></i>
         </div>
@@ -183,7 +183,6 @@ export const DetailPark = () => {
               <span>{convertTime(dataParking?.hourEnd)}</span>
             </div>
           </div>
-
           <button onClick={createBooking} className='btnBooking'>Reservar</button>
         </aside>
       </div>

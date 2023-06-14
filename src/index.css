@@ -834,7 +834,7 @@ z-index: 1000;
   border-radius: 10px;
   color: #7b7b7b;
   right: 5%;
-  bottom: 54%;
+  bottom: 58%;
 }
 
 
@@ -909,6 +909,14 @@ z-index: 1000;
 
 .leaflet-container{
   height: 100vh;
+}
+
+/* Alert log in */
+.swal2-popup {
+  overflow: hidden !important;
+}
+.swal2-loading {
+  overflow: hidden !important;
 }
 
 /* Media queries */

@@ -19,13 +19,11 @@ export const ProfileUser = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingPassword, setEditingPassword] = useState(false);
   const [name, setName] = useState(userData?.name);
-  const [cellphone, setCellphone] = useState(userData?.cellphone);
+  const [cellphone, setCellphone] = useState(userData?.phone);
   // Cambio de Contraseña
   const [currentPassword, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
-
-
   // Mostrar Div del perfil
   const [showDiv, setShowDiv] = useState(false);
 
@@ -197,7 +195,7 @@ const UpdatePassword = async(e) =>{
           <Logo to="/HomeUser"idLogo="logoHomeUser"/>
             
           <h3 >Datos Personales</h3>
-          <i className='icon-bell'></i>
+          {/* <i className='icon-bell'></i> */}
           <div onClick={toggleDiv} className='contIcon'>
           <i className='icon-user'></i>
         </div>
@@ -244,7 +242,7 @@ const UpdatePassword = async(e) =>{
               {/* <p><span className='spanInfo'>No. Licencia:</span> {userData?.license}</p> */}
             </div>
             <div className="allVehicles">
-                <h2>Mis vehiculos</h2>
+                <h2>Mi vehiculo</h2>
               <div className="contVehicles">
                 <div className="vehicle">
                   <img src={getImageSource()} alt="" />
