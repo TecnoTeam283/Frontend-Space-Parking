@@ -175,7 +175,7 @@ const UpdatePassword = async(e) =>{
       <header className='headerParking'>
         <Logo to='/HomeParking' idLogo='logoHomeUser' />
         <h3 id='nameUser'>{userData?.nameParking}</h3>
-        <i className='icon-bell'></i>
+        {/* <i className='icon-bell'></i> */}
         <div onClick={toggleDiv} className='contIcon'>
           <i className='icon-user'></i>
         </div>
