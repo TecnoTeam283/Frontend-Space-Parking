@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext } from 'react'
+import React, { useState, useRef, useContext, useEffect } from 'react'
 import { Img } from '../../UI/Img/Img';
 import { ModalUser } from '../ModalUser/ModalUser';
 import { ModalParking } from '../ModalParking/ModalParking';
@@ -91,7 +91,8 @@ export const MainLogIn = () => {
         };
        
         try {
-            const response = await axios.post("https://backend-space-parking.onrender.com/api/users/login", Usuario);
+            const response = await axios.post("http://localhost:5000/api/users/login", Usuario);
+            // const response = await axios.post("https://backend-space-parking.onrender.com/api/users/login", Usuario);
             updateUserData(response.data);
             console.log(response.data);
             if (typerole === '5') {
@@ -113,6 +114,15 @@ export const MainLogIn = () => {
 
     const [isOpenUser, setIsOpenUser] = useState(false);
     const [isOpenParking, setIsOpenParking] = useState(false);
+
+
+    useEffect(() => {
+      if (isOpenParking || isOpenUser) {
+        document.body.classList.add('modal-open');
+      } else {
+        document.body.classList.remove('modal-open');
+      }
+    }, [isOpenParking, isOpenUser]);
     
     // ESTO ES LA FUNCIONALIDAD DE MOSTRAR Y OCULTAR LA MODAL USER
 

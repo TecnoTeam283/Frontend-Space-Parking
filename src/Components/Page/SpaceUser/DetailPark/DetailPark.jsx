@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { UserDataContext } from '../../Context/UserDataProvider';
 import { Logo } from '../../../UI/Logo/Logo';
 import { Link, useLocation } from 'react-router-dom';
+import { MapParking } from '../../../UI/MapParking/MapParking.jsx';
 import  atob  from 'atob';
 import axios from 'axios';
 import moment from 'moment-timezone';
@@ -21,9 +22,11 @@ export const DetailPark = () => {
     const getUser = async () => {
       try {
         if (decodedEmail) {
-          const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUserParking', { email: decodedEmail });
+          // const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUserParking', { email: decodedEmail });
+          const response = await axios.post('http://localhost:5000/api/users/meUserParking', { email: decodedEmail });
           // console.log(response.data);
           setDataParking(response.data);
+          // console.log(response.data.location);
         }
       } catch (error) {
       }
@@ -32,6 +35,10 @@ export const DetailPark = () => {
     useEffect(() => {
       getUser();
     });
+
+    // useEffect(() => {
+    //   console.log(dataParking);
+    // }, [dataParking]);
 
     const convertTime = (horaMilitar) => {
       if (!horaMilitar) {
@@ -115,8 +122,6 @@ export const DetailPark = () => {
       <header className='headerUser'>
         <Logo to="/HomeUser" idLogo="logoHomeUser"/>    
         <h3 id='nameUser'>{userData?.name}</h3>
-          {/* <input placeholder='Buscar Parqueadero' type="text" name="" id="inputSearch" /> */}
-        {/* <i className='icon-bell'></i> */}
         <div onClick={toggleDiv}className="contIcon">
         <i  className='icon-user'></i>
         </div>
@@ -163,14 +168,16 @@ export const DetailPark = () => {
           <p> <span>Nombre: </span> {dataParking?.name}</p>
           <p> <span>Teléfono:</span> {dataParking?.cellphone}</p>
           <p> <span>Correo:</span> {dataParking?.email}</p>
-
-        </div>
+          {dataParking && dataParking.location && (
+          <MapParking nameParking={dataParking.nameParking} latitud={dataParking.location[0]} longitud={dataParking.location[1]} />)}
+          </div>
 
         <aside className="cardDataParking">
+        <h2>Información General</h2>
           <p>${dataParking?.priceCar} COP <span className='priceSpan'> Hora Carro</span></p>
           <p>${dataParking?.priceMotorcycle} COP  <span className='priceSpan'>Hora Moto</span> </p>
           <p className='pTittle'>Dirección: <span className='spanData'>{dataParking?.address}</span></p>
-          <p className='pTittle'>Capacidad Maxima: <span className='spanData'>{dataParking?.capacity[0].space} - vehiculos</span></p>
+          <p className='pTittle'>Capacidad Maxima: <span className='spanData'>{dataParking?.capacity.length} - vehiculos</span></p>
           <p className='pTittle'>Teléfono: <span className='spanData'>{dataParking?.cellphoneParking}</span></p>
           <p id='pHorarios'>Horarios De Servicio:</p>
           <div className="horarios">
@@ -185,6 +192,7 @@ export const DetailPark = () => {
           </div>
           <button onClick={createBooking} className='btnBooking'>Reservar</button>
         </aside>
+
       </div>
         </main>
     </div>

@@ -7,18 +7,23 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
 }
+
+
 
 
 
 body{
   font-size: 3rem;
   font-weight: bold;
-  /* font-family: 'Schibsted Grotesk', sans-serif; */
   font-family: 'Ubuntu', sans-serif;
-    display: flex;
+  display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+}
+
+.modal-open{
+  overflow: hidden;
 }
 ::-webkit-scrollbar{
 	width: 7px;
@@ -662,13 +667,13 @@ z-index: 1000;
 
 .modalParking{
   width: 75%;
-  height: 78%;
+  height: 85%;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  /* justify-content: space-around; */
   position: fixed;
   flex-direction: column;
-  z-index: 200;
+  z-index: 200; 
   border: solid 1px #000000;
   background: linear-gradient(to right, #dfdfdf, #04BF9D);
   box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
@@ -677,6 +682,28 @@ z-index: 1000;
   left: 50%;
   transform: translate(-50%, -50%);
   animation: showModalParking 0.5s; 
+  overflow-y: scroll;
+}
+
+.ReactModalPortal{
+  overflow-y: scroll;
+}
+.Bg-Map{
+  position: relative;
+  top: 50%;
+  right: 40%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+  align-self: center !important;
+}
+
+.messageMap{
+  width: 100%;
+  text-align: center;
+  color: #04BF9D;
+  font-size: 2rem;
+  /* margin-top: 1rem; */
 }
 
 @keyframes showModalParking {
@@ -692,6 +719,16 @@ z-index: 1000;
 /* formularios de creacion de cuentas */
 
 .createAccount{
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  position: relative;
+  border-radius: 0 0 2% 2%;
+}
+
+.createAccountUser{
   width: 100%;
   height: 90%;
   background-color: #ffffff;
@@ -716,6 +753,22 @@ z-index: 1000;
   overflow-y: scroll;
   overflow-x: hidden;
 
+}
+
+
+.dataUserSpace{
+  /* height: 100%; */
+  width: 50%;
+  padding-left: 15px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.dataUserSpace > h3{
+  width: 100%;
+  text-align: center;
+  color: #04BF9D;
+  font-size: 2rem;
+  margin-top: 1rem;
 }
 
 .dataUser >h3{
@@ -837,7 +890,13 @@ z-index: 1000;
   bottom: 58%;
 }
 
+.contAll{
+  display: flex;
+}
 
+.contAllUser{
+  display: flex;
+}
 
 
 /* BUTTON CREAR CUENTA  */
@@ -866,16 +925,17 @@ z-index: 1000;
 
 
 #btnCreateUserPark{
-  position: absolute;
-  top: 82%;
+  /* position: a; */
+  /* top: 100%; */
   align-self: center;
-  right: 43%;
+  /* right: 43%; */
   color: #000000;
   background: #d5e5f2;
   cursor: pointer;
   transition: ease-out 0.5s;
   border: 2px solid #04BF9D;
   border-radius: 10px;
+  margin-bottom: 1rem;
   box-shadow: inset 0 0 0 0 #04BF9D;
 }
 

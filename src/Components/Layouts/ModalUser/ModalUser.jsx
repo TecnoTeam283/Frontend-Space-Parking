@@ -40,16 +40,16 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
   const onSubmit = async(e) => {
     e.preventDefault()
     const Usuario = {
-      name, email, cellphone, idUser ,password, placa, model, license, vehicle
+      name, email, cellphone, idUser ,password, placa, model, license, vehicle, 
     };
     // setLoading(true)
     try{
-      const response = await axios.post("https://backend-space-parking.onrender.com/api/users/registerUser", Usuario)
+      const response = await axios.post("http://localhost:5000/api/users/registerUser", Usuario)
+      // const response = await axios.post("https://backend-space-parking.onrender.com/api/users/registerUser", Usuario)
       console.log(response.data);
       console.log(response.data.name);
       accountCreate()
       onRequestClose("false")
-
     }catch{
       alert("Error no se creo la cuenta")
     }
@@ -59,9 +59,12 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
     
     <Modal  ariaHideApp={false} className="modalUser" onRequestClose={onRequestClose} isOpen={isOpen}>
         <h2 id='titleCreate'>Crear Cuenta Usuario De Espacios</h2>
-            <form onSubmit={(e) => onSubmit(e)} className='createAccount'>
+            <form onSubmit={(e) => onSubmit(e)} className='createAccountUser'>
+              <div className="contAll">
+                
+              </div>
 
-              <div className='dataUser'>
+              <div className='dataUserSpace'>
                 <h3 >Datos Personales</h3>
 
                 <div className='contGroup'>

@@ -126,8 +126,8 @@ const UpdatePassword = async(e) =>{
     currentPassword, email, newPassword
   };
   try {
-    // axios.patch('http://localhost:5000/api/users/updatePassword', User)
-    axios.patch('https://backend-space-parking.onrender.com/api/users/updatePassword', User)
+    axios.patch('http://localhost:5000/api/users/updatePassword', User)
+    // axios.patch('https://backend-space-parking.onrender.com/api/users/updatePassword', User)
     correctUpdatePass();
     setEditingPassword(false)
 
@@ -146,32 +146,39 @@ const UpdatePassword = async(e) =>{
  try {
    await axios.patch(`http://localhost:5000/api/users/updateUserParking/${userData.idUserParking}`, User);
   //  await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUserParking/${userData.idUserParking}`, User);
-   correctUpdateData();
-   getUser()
-   setIsEditing(false);
+  correctUpdateData();
+  setIsEditing(false);
+  // Actualizar los datos del usuario después de que se haya realizado la actualización
+  getUser()
   //  await axios.patch(`http://localhost:5000/api/users/updateUserParking/${userData.idUserParking}`, User);
   } catch (error) {
-  // incorrectUpData()
-  correctUpdateData();
+    console.log(error.message);
+  incorrectUpData()
+  // correctUpdateData();
 
   }
 }
+useEffect(() => {
+  // Actualizar los datos del usuario solo cuando cambie el estado userData
+  getUser();
+}, [userData]);
 
 
 // Peticion de obtener el usuario luego de actualizar los datos
- const getUser = async () => {
-    try {
-      if (userData?.email) {
-        const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUserParking', { email: userData?.email });
-        updateUserData(response.data);
-      }
-    } catch (error) {
+const getUser = async () => {
+  try {
+    if (userData?.email) {
+      const response = await axios.post(
+        'http://localhost:5000/api/users/meUserParking',
+        { email: userData?.email }
+      );
+      updateUserData(response.data);
     }
-  };
-
-  useEffect(() => {
-    getUser();
-  });
+  } catch (error) {
+    console.log(error);
+    // Manejar el error en caso de que ocurra
+  }
+};
 
   return (
     <div className='parkingProfile'>

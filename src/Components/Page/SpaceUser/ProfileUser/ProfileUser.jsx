@@ -106,15 +106,15 @@ export const ProfileUser = () => {
   
   // Asignar imagen dependiendo el tipo de vehiculo
   
-  const getImageSource = () => {
-    // console.log(vehicle);
-    if (userData?.vehicle?.toUpperCase() === 'MOTO') {
-      return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814136/SpaceParking/Moto.webp';
-    } else {
-      console.log(userData);
-      return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814081/SpaceParking/Carro.jpg';
-    }
-  };
+  // const getImageSource = () => {
+  //   // console.log(vehicle);
+  //   if (userData?.vehicle?.toUpperCase() === 'MOTO') {
+  //     return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814136/SpaceParking/Moto.webp';
+  //   } else {
+  //     console.log(userData);
+  //     return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814081/SpaceParking/Carro.jpg';
+  //   }
+  // };
   
   
     const handleEditClick = () => {
@@ -246,8 +246,8 @@ const UpdatePassword = async(e) =>{
                 <h2>Mi vehiculo</h2>
               <div className="contVehicles">
                 <div className="vehicle">
-                  <img src={getImageSource()} alt="" />
-                  <p><span>Placa:</span>{userData?.placa}</p>
+                  {/* <img src={getImageSource()} alt="" />
+                  <p><span>Placa:</span>{userData?.placa}</p> */}
                 </div>
               </div>
             </div>
