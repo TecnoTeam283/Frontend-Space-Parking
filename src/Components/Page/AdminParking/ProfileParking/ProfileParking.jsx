@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useCallback } from 'react'
 import { Logo } from '../../../UI/Logo/Logo'
 import { UserDataContext } from '../../Context/UserDataProvider'
 import { FormGroup } from '../../../UI/FormGroup/FormGroup'
@@ -90,6 +90,8 @@ export const ProfileParking = () => {
   const [currentPassword, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
 
   const [isEditing, setIsEditing] = useState(false);
   const [isEditingPassword, setEditingPassword] = useState(false);
@@ -122,15 +124,37 @@ export const ProfileParking = () => {
 // Función Actualizar contraseña
 const UpdatePassword = async(e) =>{
   e.preventDefault()
+
+    // Validacion de que la nueva contraseña y la confirmacion sean iguales
+    if (newPassword !== confirmPassword) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'La nueva contraseña y la confirmación no coinciden',
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'titleUpdateIncorrect',
+          content: 'textUpdatePass',
+          confirmButton: 'btnIncorrectPass',
+        },
+      });
+      return;
+    }
+
   const User = {
     currentPassword, email, newPassword
   };
   try {
-    axios.patch('http://localhost:5000/api/users/updatePassword', User)
+    const response = await axios.patch('http://localhost:5000/api/users/updatePassword', User)
     // axios.patch('https://backend-space-parking.onrender.com/api/users/updatePassword', User)
     correctUpdatePass();
     setEditingPassword(false)
-
+    if (response.data.status === 'Verified') {
+      correctUpdatePass();
+      setEditingPassword(false);
+    } else if (response.data.status === 'Incorrect Current Password') {
+      incorrectUpPassword();
+    }
   } catch (error) {
     incorrectUpPassword()
   }
@@ -154,18 +178,13 @@ const UpdatePassword = async(e) =>{
   } catch (error) {
     console.log(error.message);
   incorrectUpData()
-  // correctUpdateData();
-
   }
 }
-useEffect(() => {
-  // Actualizar los datos del usuario solo cuando cambie el estado userData
-  getUser();
-}, [userData]);
+
 
 
 // Peticion de obtener el usuario luego de actualizar los datos
-const getUser = async () => {
+const getUser = useCallback( async () => {
   try {
     if (userData?.email) {
       const response = await axios.post(
@@ -176,9 +195,13 @@ const getUser = async () => {
     }
   } catch (error) {
     console.log(error);
-    // Manejar el error en caso de que ocurra
   }
-};
+}, [userData, updateUserData]);
+
+useEffect(() => {
+  // Actualizar los datos del usuario solo cuando cambie el estado userData
+  getUser();
+}, [userData, getUser]);
 
   return (
     <div className='parkingProfile'>
@@ -216,6 +239,7 @@ const getUser = async () => {
             <FormGroup onChange={(e) => setPassword(e.target.value)} nameInput="currentPassword" inputType="password" contLabel="Contraseña Actual" />
             <FormGroup onChange={(e) => setEmail(e.target.value)} nameInput="email" inputType="email" contLabel="Correo" />
             <FormGroup onChange={(e) => setNewPassword(e.target.value)} nameInput="newPassword" inputType="text" contLabel="Nueva Contraseña" />
+            <FormGroup onChange={(e) => setConfirmPassword(e.target.value)} nameInput="confirmPassword" inputType="text" contLabel="Confirmar Nueva Contraseña" />
             <div className="contFuncBtns">
                 <button type='submit'>Actualizar Contraseña</button>
                 <button onClick={()=> setEditingPassword(false)}>Cancelar</button>
@@ -230,7 +254,7 @@ const getUser = async () => {
               <p><span className='spanInfo'>Correo: </span> {userData?.email}</p>
               <p><span className='spanInfo'>Teléfono:</span> {userData?.cellphone}</p>
               <p><span className='spanInfo'>No. Identificación:</span> {userData?.idUserParking}</p>
-              <p><span className='spanInfo'>Nit</span> {userData?.nit}</p>
+              <p><span className='spanInfo'>Nit:</span> {userData?.nit}</p>
               {/* <p><span className='spanInfo'>No. Licencia:</span> {userData?.license}</p> */}
             </div>
 

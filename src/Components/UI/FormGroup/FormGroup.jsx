@@ -1,9 +1,9 @@
 import React from 'react'
 
-export const FormGroup = ({place, inputType,contLabel, nameInput, onChange, value, min}) => {
+export const FormGroup = ({place, inputType,contLabel, nameInput, onChange, value, min, id, accept}) => {
   return (
     <div className='form__group field'>
-        <input min={min} contentEditable="true" value={value} onChange={onChange} name={nameInput} multiple className='form__field' placeholder={place} type={inputType} required />
+        <input id={id} min={min} contentEditable="true" accept={accept} value={value} onChange={onChange} name={nameInput} multiple className='form__field' placeholder={place} type={inputType} required />
         <label className='form__label'>{contLabel}</label>
     </div>
   )

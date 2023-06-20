@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 
 export const DetailPark = () => {
   const { userData} = useContext(UserDataContext);
+  const [imageUrls, setImageUrls] = useState([]);
 
 
     // get data parking
@@ -26,6 +27,9 @@ export const DetailPark = () => {
           const response = await axios.post('http://localhost:5000/api/users/meUserParking', { email: decodedEmail });
           // console.log(response.data);
           setDataParking(response.data);
+          const imageUrlString = response.data.allUrls; // Cadena de URLs separadas por comas
+          const urlsArray = imageUrlString.split(','); // Divide la cadena en un array de URLs
+          setImageUrls(urlsArray); 
           // console.log(response.data.location);
         }
       } catch (error) {
@@ -104,8 +108,8 @@ export const DetailPark = () => {
         };
     
         try {
-          await axios.post("https://backend-space-parking.onrender.com/api/users/createBooking", bookingData);
-          // await axios.post("http://localhost:5000/api/users/createBooking", bookingData);
+          // await axios.post("https://backend-space-parking.onrender.com/api/users/createBooking", bookingData);
+          await axios.post("http://localhost:5000/api/users/createBooking", bookingData);
           correctBooking()
         
     
@@ -142,19 +146,19 @@ export const DetailPark = () => {
         </div>
 
         <div className="contImagesParking">
-          <img id='imgPrinParking' src="https://res.cloudinary.com/miguelgo205/image/upload/v1684815614/SpaceParking/432216777nidoo-parqueaderos-cy_i901xu.jpg" alt="" />
+          <img id='imgPrinParking' src={imageUrls[0]} alt="" />
           <div className='contImgPequeñas'>
             <div className="peqImg">
-              <img className='imgModalParking' src="https://res.cloudinary.com/miguelgo205/image/upload/v1684815602/SpaceParking/parqueadero1_ljazl7.jpg" alt="" />
+              <img className='imgModalParking' src={imageUrls[1]}  alt="" />
             </div>
             <div className="peqImg">
-              <img className='imgModalParking' src="https://res.cloudinary.com/miguelgo205/image/upload/v1684815602/SpaceParking/parqueadero1_ljazl7.jpg" alt="" />
+              <img className='imgModalParking' src={imageUrls[1]}  alt="" />
             </div>
             <div className="peqImg down">
-              <img className='imgModalParking' src="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" alt="" />
+              <img className='imgModalParking' src={imageUrls[0]}  alt="" />
             </div>
             <div className="peqImg down">
-              <img className='imgModalParking' src="https://res.cloudinary.com/miguelgo205/image/upload/v1679893318/SpaceParking/logoParking_uam7is.jpg" alt="" />
+              <img className='imgModalParking' src={imageUrls[1]}  alt="" />
             </div>   
             </div>
           </div>
@@ -177,7 +181,7 @@ export const DetailPark = () => {
           <p>${dataParking?.priceCar} COP <span className='priceSpan'> Hora Carro</span></p>
           <p>${dataParking?.priceMotorcycle} COP  <span className='priceSpan'>Hora Moto</span> </p>
           <p className='pTittle'>Dirección: <span className='spanData'>{dataParking?.address}</span></p>
-          <p className='pTittle'>Capacidad Maxima: <span className='spanData'>{dataParking?.capacity.length} - vehiculos</span></p>
+          <p className='pTittle'>Capacidad Maxima: <span className='spanData'>{dataParking?.capacity.length} vehiculos</span></p>
           <p className='pTittle'>Teléfono: <span className='spanData'>{dataParking?.cellphoneParking}</span></p>
           <p id='pHorarios'>Horarios De Servicio:</p>
           <div className="horarios">

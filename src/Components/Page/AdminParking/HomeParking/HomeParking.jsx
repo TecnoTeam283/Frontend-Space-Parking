@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Logo } from '../../../UI/Logo/Logo';
 import { UserDataContext } from '../../Context/UserDataProvider';
-import styles from './HomeParking.css';
+import './HomeParking.css';
 import { Circle } from '../../../UI/Circle/Circle';
 import { Link } from 'react-router-dom';
 import { ModalState } from '../../../Layouts/ModalState/ModalState';
@@ -72,19 +72,19 @@ export const HomeParking = () => {
         <section className='infoStates'>
           <p>Estados</p>
           <div className='info'>
-            <Circle state='reserved' />
+            <Circle id="iconInfo" state='reserved' />
             <span>Reservado</span>
           </div>
           <div className='info'>
-            <Circle state='busy' />
+            <Circle id="iconInfo" state='busy' />
             <span>Ocupado</span>
           </div>
           <div className='info'>
-            <Circle state='notAvailable' />
+            <Circle id="iconInfo" state='notAvailable' />
             <span>No Disponible</span>
           </div>
           <div className='info'>
-            <Circle state='available' />
+            <Circle id="iconInfo" state='available' />
             <span>Disponible</span>
           </div>
         </section>

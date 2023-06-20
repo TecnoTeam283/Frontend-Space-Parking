@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import styles from "./HomeUser.css"
+import "./HomeUser.css"
 import { CardParking } from '../../../Layouts/CardParking/CardParking'
 import { UserDataContext} from '../../Context/UserDataProvider'
 import { Logo } from '../../../UI/Logo/Logo'
@@ -9,7 +9,8 @@ import axios from 'axios'
 
 export const HomeUser = () => {
   const { userData} = useContext(UserDataContext);
-  const [search, setSearch] = useState("");
+  // const [search, setSearch] = useState("");
+  const [parkingImages, setParkingImages] = useState({});
   const navigate = useNavigate();
 
   // RENDERIZADO DE PARQUEADREOS 
@@ -24,6 +25,14 @@ export const HomeUser = () => {
     try {
       const answer = await axios.get(apiGetParkigns);
       setCollection(answer.data);
+      const images = {};
+      answer.data.forEach((parking) => {
+        if (parking.allUrls && parking.allUrls.length > 0) {
+          const urls = parking.allUrls.split(',');
+          images[parking.idUserParking] = urls[0];
+        }
+      });
+      setParkingImages(images);
     } catch (error) {
       console.log(error);
     }
@@ -35,7 +44,6 @@ export const HomeUser = () => {
 
   const SearchParking = (event)=>{
     const searchValue = event.target.value
-    setSearch(searchValue)
 
     if (searchValue ==="") {
       getCollection()
@@ -102,7 +110,7 @@ export const HomeUser = () => {
               priceParking={`${item.priceMotorcycle} - $${item.priceCar}`}
               adressParking={item.address}
               nameParking={item.nameParking}
-              urlImage="https://res.cloudinary.com/miguelgo205/image/upload/v1684815614/SpaceParking/432216777nidoo-parqueaderos-cy_i901xu.jpg"
+              urlImage={parkingImages[item.idUserParking]}
               />
             ))}
           </div>     

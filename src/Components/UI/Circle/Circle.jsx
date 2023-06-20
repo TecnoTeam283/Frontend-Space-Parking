@@ -1,7 +1,7 @@
 import React from 'react'
 
-export const Circle = ({state, onClick, numberSelected}) => {
+export const Circle = ({state, onClick, numberSelected, id}) => {
   return (
-    <div number={numberSelected}  onClick={onClick} className={`circle ${state}`}></div>
+      <i id={id} number={numberSelected}  onClick={onClick} className={` icon-car  ${state}`}></i>
   )
 }

@@ -20,10 +20,12 @@ export const ProfileUser = () => {
   const [isEditingPassword, setEditingPassword] = useState(false);
   const [name, setName] = useState(userData?.name);
   const [cellphone, setCellphone] = useState(userData?.phone);
+  const [vehicles, setVehicles] = useState([]);
   // Cambio de Contraseña
   const [currentPassword, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   // Mostrar Div del perfil
   const [showDiv, setShowDiv] = useState(false);
 
@@ -106,15 +108,15 @@ export const ProfileUser = () => {
   
   // Asignar imagen dependiendo el tipo de vehiculo
   
-  // const getImageSource = () => {
-  //   // console.log(vehicle);
-  //   if (userData?.vehicle?.toUpperCase() === 'MOTO') {
-  //     return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814136/SpaceParking/Moto.webp';
-  //   } else {
-  //     console.log(userData);
-  //     return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814081/SpaceParking/Carro.jpg';
-  //   }
-  // };
+  const getImageSource = (vehicle) => {
+    // console.log(vehicle);
+    if (vehicle.typeVehicle.toUpperCase() === 'MOTO') {
+      return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814136/SpaceParking/Moto.webp';
+    } else {
+      // console.log(userData);
+      return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814081/SpaceParking/Carro.jpg';
+    }
+  };
   
   
     const handleEditClick = () => {
@@ -146,7 +148,6 @@ export const ProfileUser = () => {
       };
       
       try {
-        // console.log("entra");
         // await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUser/${userData?.idUser}`, User);
         console.log(User);
         await axios.patch(`http://localhost:5000/api/users/updateUser/${userData?.idUser}`, User);
@@ -164,8 +165,10 @@ export const ProfileUser = () => {
     if (userData?.email) {
       const response = await axios.post('http://localhost:5000/api/users/meUser', { email: userData?.email });
       updateUserData(response.data);
+      setVehicles(response.data.vehicle);
     }
   } catch (error) {
+
   }
 };
 
@@ -176,15 +179,36 @@ useEffect(() => {
 // Función Actualizar contraseña
 const UpdatePassword = async(e) =>{
   e.preventDefault()
+
+  // Validacion de que la nueva contraseña y la confirmacion sean iguales
+  if (newPassword !== confirmPassword) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Error',
+      text: 'La nueva contraseña y la confirmación no coinciden',
+      confirmButtonText: 'OK',
+      customClass: {
+        title: 'titleUpdateIncorrect',
+        content: 'textUpdatePass',
+        confirmButton: 'btnIncorrectPass',
+      },
+    });
+    return;
+  }
   const User = {
     currentPassword, email, newPassword
   };
   try {
-    axios.patch('https://backend-space-parking.onrender.com/api/users/updatePassword', User)
+    const response = await axios.patch('https://backend-space-parking.onrender.com/api/users/updatePassword', User)
     correctUpdatePass();
     setEditingPassword(false)
-
-  } catch (error) {
+    if (response.data.status === 'Verified') {
+      correctUpdatePass();
+      setEditingPassword(false);
+    } else if (response.data.status === 'Incorrect Current Password') {
+      incorrectUpPassword();
+    }
+  }catch (error) {
     incorrectUpPassword()
   }
 }
@@ -226,6 +250,7 @@ const UpdatePassword = async(e) =>{
             <FormGroup onChange={(e) => setPassword(e.target.value)} nameInput="currentPassword" inputType="password" contLabel="Contraseña Actual" />
             <FormGroup onChange={(e) => setEmail(e.target.value)} nameInput="email" inputType="email" contLabel="Correo" />
             <FormGroup onChange={(e) => setNewPassword(e.target.value)} nameInput="newPassword" inputType="text" contLabel="Nueva Contraseña" />
+            <FormGroup onChange={(e) => setConfirmPassword(e.target.value)} nameInput="confirmPassword" inputType="text" contLabel="Confirmar Nueva Contraseña" />
             <div className="contFuncBtns">
                 <button type='submit'>Actualizar Contraseña</button>
                 <button onClick={()=> setEditingPassword(false)}>Cancelar</button>
@@ -245,9 +270,15 @@ const UpdatePassword = async(e) =>{
             <div className="allVehicles">
                 <h2>Mi vehiculo</h2>
               <div className="contVehicles">
-                <div className="vehicle">
-                  {/* <img src={getImageSource()} alt="" />
-                  <p><span>Placa:</span>{userData?.placa}</p> */}
+                {vehicles.map((vehicle) => (
+                <div key={vehicle._id} className="vehicle">
+                  <img src={getImageSource(vehicle)} alt="" />
+                  <p><span>Placa:</span>{vehicle.placa}</p>
+                  <p><span>Modelo:</span>{vehicle.model}</p>
+                </div>
+                ))}
+                <div className="addVehicle">
+                  +
                 </div>
               </div>
             </div>

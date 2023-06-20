@@ -4,7 +4,6 @@ import { Card } from '../../Layouts/Card/Card'
 import { Img } from '../../UI/Img/Img'
 import { MainLogIn } from '../../Layouts/MainLogIn/MainLogIn'
 import { Logo } from '../../UI/Logo/Logo'
-import { MapCreate } from '../../UI/MapCreate/MapCreate.jsx'
 
 
 

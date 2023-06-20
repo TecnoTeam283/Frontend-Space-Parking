@@ -359,10 +359,14 @@ body{
     overflow-y: hidden;
 }
 
+.swal2-icon{
+    overflow-x: hidden;
+}
+
 
 .vehicle{
     width: 50%;
-    height: 50%;
+    /* height: 50%; */
     display: flex;
     flex-direction: column;
     align-items: center;
