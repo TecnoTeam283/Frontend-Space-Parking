@@ -6,6 +6,7 @@ import { UserDataContext} from '../../Context/UserDataProvider'
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import {Link, useNavigate } from 'react-router-dom';
+import Modal from 'react-modal';
 
 
 
@@ -26,8 +27,13 @@ export const ProfileUser = () => {
   const [email, setEmail] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [placa, setPlaca] = useState('');
+  const [model, setModel] = useState('');
+  const [typeVehicle, setType] = useState('');
   // Mostrar Div del perfil
   const [showDiv, setShowDiv] = useState(false);
+
+  const [showModal, setShowModal] = useState(false);
 
   const toggleDiv = () => {
     setShowDiv(!showDiv);
@@ -104,6 +110,48 @@ export const ProfileUser = () => {
           },
         })
   }
+
+  // Agregar Vehiculo
+  const correctAddVehicle = () =>{
+    Swal.fire({
+        icon: 'success',
+        title: '¡Excelente!',
+        html: 'Vehiculo Agregado Exitosamente',
+        showConfirmButton: true,
+        confirmButtonText: 'Hecho',
+        customClass: {
+          title: 'titleUpdatePass',
+          content: 'textUpdatePass',
+          confirmButton: 'btnUpdatePass',
+        },
+      })
+    };
+
+  // Modal Agregar Vehiculo
+  const vehicleModal = () => {
+    setShowModal(!showModal);
+    console.log(userData);
+  };
+
+
+  const createVehicle = async(e) => {
+    e.preventDefault()
+    const vehicle = {
+      placa, model, typeVehicle
+    };
+    
+    try {
+      // await axios.post(`httpS://backend-space-parking.onrender.com/api/users/addVehicles/${userData?.idUser}`, vehicle);
+      await axios.post(`http://localhost:5000/api/users/addVehicles/${userData?.idUser}`, vehicle);
+      getUser();
+      vehicleModal();
+      correctAddVehicle();
+
+     } catch (error) {
+     incorrectUpData()
+     console.log(error);
+   }
+   }
 
   
   // Asignar imagen dependiendo el tipo de vehiculo
@@ -216,6 +264,22 @@ const UpdatePassword = async(e) =>{
   
     return (
       <div className="user-profile">
+        <Modal ariaHideApp={false} className="modalVehicle" isOpen={showModal} onRequestClose={vehicleModal} >
+      <h2>Solicitud de Vehículo</h2>
+      <form className='containerInputs' onSubmit={(e) => createVehicle(e)} >
+      <div className='contGroup'>
+        <FormGroup onChange={(e) => setPlaca(e.target.value)} nameInput="placa" contLabel="No. Placa" place="No. Placa"  maxLenght="6" inputType="text"/>
+        <FormGroup onChange={(e) => setModel(e.target.value)} nameInput="model" contLabel="Modelo" place="Modelo" inputType="number"/>      
+        <select onChange={(e) => setType(e.target.value)}  name="vehicle" id="select-platform" placeholder='tipo Vehiculo'required className="select-create">
+          <option value="">Tipo Vehiculo</option>
+          <option value="Moto">Moto</option>
+          <option value="Carro">Carro</option>
+          </select>
+                
+      </div>
+        <button type="submit">Enviar</button>
+      </form>
+        </Modal>
         <header className='headerUser'>
           <Logo to="/HomeUser"idLogo="logoHomeUser"/>
             
@@ -277,9 +341,11 @@ const UpdatePassword = async(e) =>{
                   <p><span>Modelo:</span>{vehicle.model}</p>
                 </div>
                 ))}
-                <div className="addVehicle">
+                {vehicles.length < 3 && (
+                <div onClick={vehicleModal} className="addVehicle">
                   +
                 </div>
+              )}
               </div>
             </div>
           </div>

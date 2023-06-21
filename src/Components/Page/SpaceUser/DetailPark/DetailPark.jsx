@@ -45,11 +45,9 @@ export const DetailPark = () => {
           const imageUrlString = response.data.allUrls; // Cadena de URLs separadas por comas
           const urlsArray = imageUrlString.split(','); // Divide la cadena en un array de URLs
           setImageUrls(urlsArray); 
-          if (response.data.vehicles.length > 0) {
-            setSelectedVehicle(response.data.vehicles[0].id); // Establecer el primer vehículo como seleccionado inicialmente
-          };
         }
       } catch (error) {
+        console.log(error);
       }
     };
 
@@ -128,12 +126,9 @@ export const DetailPark = () => {
           // await axios.post("https://backend-space-parking.onrender.com/api/users/createBooking", bookingData);
           await axios.post("http://localhost:5000/api/users/createBooking", bookingData);
           correctBooking()
-        
-    
         } catch (error) {
           incorrectBooking()
           console.log(bookingData);
-          // incorrect()
         }
       }
     

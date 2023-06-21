@@ -14,6 +14,28 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
     })
   }
 
+  const incorrectPasswords = () =>{
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Las Contraseñas No Coinciden',
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'titleUpdateIncorrect',
+          content: 'textUpdatePass',
+          confirmButton: 'btnIncorrectPass',
+        },
+      })
+}
+
+const showMinLengthMessage = () => {
+  Swal.fire({
+    icon: 'info',
+    title: 'Contraseña',
+    text: 'La contraseña debe tener al menos 8 caracteres.',
+  });
+};
+
 
   // Connect back and front
   const [inputs, setInputs] = useState({
@@ -42,6 +64,14 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
     const Usuario = {
       name, email, cellphone, idUser ,password, placa, model, license, vehicle, 
     };
+
+    const confirmPassword = inputs.confirmarContraseña;
+    if (password !== confirmPassword) {
+      // alert('La contraseña y la confirmación de contraseña no coinciden.');
+      incorrectPasswords()
+      return;
+    }
+  
     // setLoading(true)
     try{
       const response = await axios.post("http://localhost:5000/api/users/registerUser", Usuario)
@@ -61,7 +91,6 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
         <h2 id='titleCreate'>Crear Cuenta Usuario De Espacios</h2>
             <form onSubmit={(e) => onSubmit(e)} className='createAccountUser'>
               <div className="contAll">
-                
               </div>
 
               <div className='dataUserSpace'>
@@ -72,7 +101,7 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
                 <FormGroup onChange={(e) => onChange(e)} nameInput="email" contLabel="Correo" place="Correo" inputType="email"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="cellphone" contLabel="Telefono" place="Telefono" inputType="number"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="idUser" contLabel="No. Identificacion" place="No. Identificacion" inputType="number"/>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="password" contLabel="Contraseña" place="Contraseña" inputType="password"/>
+                <FormGroup onChange={(e) => onChange(e)} onFocus={() => {if (password.length < 8) {showMinLengthMessage();}}} nameInput="password" contLabel="Contraseña" place="Contraseña" inputType="password"/>
                 <FormGroup nameInput="confirmarContraseña" contLabel="Confirmar Contraseña" place="Contraseña" inputType="password"/>
                 </div>
  
@@ -83,7 +112,7 @@ export const ModalUser = ({isOpen, onRequestClose}) => {
                 <h3>Datos Vehiculo</h3>
 
                 <div className='contGroup'>
-                <FormGroup onChange={(e) => onChange(e)} nameInput="placa" contLabel="No. Placa" place="No. Placa" inputType="text"/>
+                <FormGroup onChange={(e) => onChange(e)} nameInput="placa" contLabel="No. Placa" place="No. Placa"  maxLenght="6" inputType="text"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="model" contLabel="Modelo" place="Modelo" inputType="number"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="license" contLabel="No. Licencia" place="No. Licencia" inputType="text"/>
                 {/* <FormGroup onChange={(e) => onChange(e)} nameInput="vehicle" contLabel="Tipo Vehiculo" place="Tipo Vehiculo" inputType="text"/> */}
