@@ -7,11 +7,27 @@ import  atob  from 'atob';
 import axios from 'axios';
 import moment from 'moment-timezone';
 import Swal from 'sweetalert2';
+import Modal from 'react-modal';
 
 export const DetailPark = () => {
   const { userData} = useContext(UserDataContext);
   const [imageUrls, setImageUrls] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
+  
+  const toggleModal = () => {
+    setShowModal(!showModal);
+    console.log(userData);
+  };
+
+  const getImageSource = (vehicle) => {
+    if (vehicle.typeVehicle.toUpperCase() === 'MOTO') {
+      return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814136/SpaceParking/Moto.webp';
+    } else {
+      return 'https://res.cloudinary.com/miguelgo205/image/upload/v1684814081/SpaceParking/Carro.jpg';
+    }
+  };
 
     // get data parking
     const location = useLocation();
@@ -25,12 +41,13 @@ export const DetailPark = () => {
         if (decodedEmail) {
           // const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUserParking', { email: decodedEmail });
           const response = await axios.post('http://localhost:5000/api/users/meUserParking', { email: decodedEmail });
-          // console.log(response.data);
           setDataParking(response.data);
           const imageUrlString = response.data.allUrls; // Cadena de URLs separadas por comas
           const urlsArray = imageUrlString.split(','); // Divide la cadena en un array de URLs
           setImageUrls(urlsArray); 
-          // console.log(response.data.location);
+          if (response.data.vehicles.length > 0) {
+            setSelectedVehicle(response.data.vehicles[0].id); // Establecer el primer vehículo como seleccionado inicialmente
+          };
         }
       } catch (error) {
       }
@@ -98,7 +115,7 @@ export const DetailPark = () => {
       const formattedDate = currentDate.tz('America/Bogota').format('YYYY-MM-DD HH:mm:ss');
      
         const bookingData = {
-          name: `${userData?.placa}-${userData?.name}`,
+          name: `${selectedVehicle}-${userData?.name}`,
           nitParking: dataParking?.nit, 
           idUser: userData?.idUser,
           userName: userData?.name,
@@ -194,10 +211,26 @@ export const DetailPark = () => {
               <span>{convertTime(dataParking?.hourEnd)}</span>
             </div>
           </div>
-          <button onClick={createBooking} className='btnBooking'>Reservar</button>
+          <button onClick={toggleModal} className='btnBooking'>Reservar</button>
+          {/* <button onClick={createBooking} className='btnBooking'>Reservar</button> */}
         </aside>
-
       </div>
+      <Modal ariaHideApp={false} isOpen={showModal} onRequestClose={toggleModal} className='modalBooking'>
+          <h2>Selecciona tu vehículo</h2>
+          <div className="allVehiclesBooking">
+            {userData?.vehicle?.map((vehicle) => (
+              <div key={vehicle._id} className={`vehicleSelected ${selectedVehicle === vehicle ? 'selected' : ''}`} tabIndex="0"  onClick={() => {
+                if (vehicle.placa) {
+                  setSelectedVehicle(vehicle.placa);
+                }
+              }}>
+                  <img src={getImageSource(vehicle)} alt="" />
+                <p> <span>Placa:</span> {vehicle.placa}<span>  Modelo:</span> {vehicle.model}</p>
+              </div>
+            ))}
+          </div>
+          <button onClick={createBooking} className='btnConfirmBooking'>Confirmar Reserva</button>
+        </Modal>
         </main>
     </div>
   )
