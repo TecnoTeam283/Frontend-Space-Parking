@@ -74,8 +74,8 @@ const showMinLengthMessage = () => {
   
     // setLoading(true)
     try{
-      const response = await axios.post("http://localhost:5000/api/users/registerUser", Usuario)
-      // const response = await axios.post("https://backend-space-parking.onrender.com/api/users/registerUser", Usuario)
+      // const response = await axios.post("http://localhost:5000/api/users/registerUser", Usuario)
+      const response = await axios.post("https://backend-space-parking.onrender.com/api/users/registerUser", Usuario)
       console.log(response.data);
       console.log(response.data.name);
       accountCreate()

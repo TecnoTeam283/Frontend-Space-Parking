@@ -39,8 +39,8 @@ export const DetailPark = () => {
     const getUser = async () => {
       try {
         if (decodedEmail) {
-          // const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUserParking', { email: decodedEmail });
-          const response = await axios.post('http://localhost:5000/api/users/meUserParking', { email: decodedEmail });
+          const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUserParking', { email: decodedEmail });
+          // const response = await axios.post('http://localhost:5000/api/users/meUserParking', { email: decodedEmail });
           setDataParking(response.data);
           const imageUrlString = response.data.allUrls; // Cadena de URLs separadas por comas
           const urlsArray = imageUrlString.split(','); // Divide la cadena en un array de URLs
@@ -124,8 +124,8 @@ export const DetailPark = () => {
         };
     
         try {
-          // await axios.post("https://backend-space-parking.onrender.com/api/users/createBooking", bookingData);
-          await axios.post("http://localhost:5000/api/users/createBooking", bookingData);
+          await axios.post("https://backend-space-parking.onrender.com/api/users/createBooking", bookingData);
+          // await axios.post("http://localhost:5000/api/users/createBooking", bookingData);
           correctBooking()
           toggleModal()
 
