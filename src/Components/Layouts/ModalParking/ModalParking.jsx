@@ -149,7 +149,7 @@ export const ModalParking = ({ isOpen, onRequestClose }) => {
               <FormGroup onChange={onSaveData} nameInput="email" contLabel="Correo" place="Correo" inputType="email" />
               <FormGroup onChange={onSaveData} nameInput="cellphone" contLabel="Telefono" place="Telefono" inputType="number" />
               <FormGroup onChange={onSaveData} nameInput="idUserParking" contLabel="No. Identificacion" place="No. Identificacion" inputType="number" />
-              <FormGroup onChange={onSaveData} nameInput="password" contLabel="Contraseña" place="Contraseña" inputType="password" />
+              <FormGroup onChange={onSaveData} nameInput="password" minLength="6"  contLabel="Contraseña" place="Contraseña" inputType="password" />
               <FormGroup onChange={onSaveData} nameInput="confirmPassword" contLabel="Confirmar Contraseña" place="Contraseña" inputType="password" />
               <FormGroup onChange={onSaveData} nameInput="hourStart" contLabel="Hora Inicio" place="Hora Inicio" inputType="time" />
               <FormGroup onChange={onSaveData} nameInput="hourEnd" contLabel="Hora Fin" place="Hora Fin" inputType="time" />

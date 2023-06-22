@@ -325,7 +325,7 @@ const UpdatePassword = async(e) =>{
         </div>
         {showDiv && (
           <div style={{ display: 'block' }} className='optionsUser'>
-            <Link className='linkOptions' to='/HomeUser'>Home</Link>
+            <Link className='linkOptions' to='/HomeUser'>Inicio</Link>
             <hr />
             <Link className='linkOptions' to='/'>Cerrar Sesión</Link>
           </div>

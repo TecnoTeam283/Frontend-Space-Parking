@@ -214,7 +214,7 @@ useEffect(() => {
         </div>
         {showDiv && (
           <div style={{ display: 'block' }} className='optionsUser'>
-            <Link className='linkOptions' to='/HomeParking'>Home</Link>
+            <Link className='linkOptions' to='/HomeParking'>Inicio</Link>
             <hr />
             <Link className='linkOptions' to='/'>Cerrar Sesión</Link>
           </div>
