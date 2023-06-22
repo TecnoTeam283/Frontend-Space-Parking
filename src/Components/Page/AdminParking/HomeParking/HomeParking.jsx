@@ -15,8 +15,6 @@ export const HomeParking = () => {
   const [stateSelected, setState] = useState('');
   const [spaces, setSpaces] = useState([]);
   const [bookings, setbookings] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  
 
   // Obtener espacios
   const getSpaces = async () => {
@@ -39,10 +37,9 @@ export const HomeParking = () => {
   const getBookings = async () => {
     try {
       if (userData?.nit) {
-        const response = await axios.get(`http://localhost:5000/api/users/getBookingsByNitParking/${userData.nit}`);
-        // const response = await axios.get(`https://backend-space-parking.onrender.com/api/users/getBookingsByNitParking/${userData.nit}`);
+        // const response = await axios.get(`http://localhost:5000/api/users/getBookingsByNitParking/${userData.nit}`);
+        const response = await axios.get(`https://backend-space-parking.onrender.com/api/users/getBookingsByNitParking/${userData.nit}`);
         setbookings(response.data)
-        console.log(response.data);
       }
     } catch (error) {
     }
@@ -53,10 +50,6 @@ export const HomeParking = () => {
   });
 
 
-  const toggleModal = () => {
-    setShowModal(!showModal);
-    console.log(userData);
-  };
 
   const openModalState = (spaceSelected) => {
     setIsOpenStates(true);
@@ -89,10 +82,9 @@ export const HomeParking = () => {
         <Modal ariaHideApp={false} isOpen={showNoti} onRequestClose={toggleNoti} className='modalNoti'>
           <h2>Centro de Reservas</h2>
           <div className="containerNoti">
-            {bookings.map((booking) => (
-              <div className='booking'>
-                <p>Tienes una reserva del <span className='spanNoti'>Usuario: </span> {booking.userName} en el {booking.spaceBooking} <span className='spanNoti'> Placa: </span> {booking.placa}, <span className='spanNoti'>Telefono: </span> {booking.cellphone} <br /> <span className='spanNoti'>fecha y hora reserva:</span> {booking.
-dateStartBooking}  </p>
+            {bookings.map((booking, index) => (
+              <div className='booking' key={index}>
+                <p>Tienes una reserva del <span className='spanNoti'>Usuario: </span> {booking.userName} en el {booking.spaceBooking} <span className='spanNoti'> Placa: </span> {booking.placa}, <span className='spanNoti'>Telefono: </span> {booking.cellphone} <br /> <span className='spanNoti'>fecha y hora reserva:</span> {booking.dateStartBooking}  </p>
               </div>
 
             ))}

@@ -146,7 +146,7 @@ const UpdatePassword = async(e) =>{
   };
   try {
     // const response = await axios.patch('http://localhost:5000/api/users/updatePassword', User)
-    axios.patch('https://backend-space-parking.onrender.com/api/users/updatePassword', User)
+    const response = await axios.patch('https://backend-space-parking.onrender.com/api/users/updatePassword', User)
     correctUpdatePass();
     setEditingPassword(false)
     if (response.data.status === 'Verified') {
@@ -174,7 +174,6 @@ const UpdatePassword = async(e) =>{
   setIsEditing(false);
   // Actualizar los datos del usuario después de que se haya realizado la actualización
   getUser()
-  //  await axios.patch(`http://localhost:5000/api/users/updateUserParking/${userData.idUserParking}`, User);
   } catch (error) {
     console.log(error.message);
   incorrectUpData()

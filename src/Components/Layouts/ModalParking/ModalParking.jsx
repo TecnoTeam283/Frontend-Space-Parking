@@ -123,7 +123,7 @@ export const ModalParking = ({ isOpen, onRequestClose }) => {
       onRequestClose(false);
     } catch (error) {
       console.error('Error al crear la cuenta:', error);
-      alert('Error: No se pudo crear la cuenta');
+      // alert('Error: No se pudo crear la cuenta');
     }
   };
 

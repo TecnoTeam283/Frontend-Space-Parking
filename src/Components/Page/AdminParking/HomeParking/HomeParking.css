@@ -93,6 +93,10 @@ body{
     color: #04BF9D;
 }
 
+.icon-bell{
+    cursor: pointer;
+}
+
 .infoStates{
     width: 20%;
     height: 100%;
