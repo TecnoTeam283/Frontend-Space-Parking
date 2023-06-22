@@ -33,6 +33,11 @@ export const ProfileUser = () => {
   // Mostrar Div del perfil
   const [showDiv, setShowDiv] = useState(false);
 
+  // Eliminar Vehiculo 
+  // const [hoveredVehicleIndex, setHoveredVehicleIndex] = useState(null);
+  // const [showDeleteIcon, setShowDeleteIcon] = useState(false);
+  const [hoveredVehicleIndex, setHoveredVehicleIndex] = useState(null);
+
   const [showModal, setShowModal] = useState(false);
 
   const toggleDiv = () => {
@@ -131,6 +136,36 @@ export const ProfileUser = () => {
   const vehicleModal = () => {
     setShowModal(!showModal);
     console.log(userData);
+  };
+
+  // Eliminar Vehiculo
+  const handleDeleteVehicle = async (index) => {
+    try {
+      // Realiza la lógica de eliminación del vehículo utilizando el índice
+      const updatedVehicles = [...vehicles];
+      updatedVehicles.splice(index, 1);
+      setVehicles(updatedVehicles);
+  
+      // Realiza la solicitud HTTP para eliminar el vehículo del backend
+      await axios.delete(`http://localhost:5000/api/users/deleteVehicles/${userData?.idUser}/${vehicles[index]?._id}`);
+  
+      // Muestra una alerta o realiza cualquier otra acción deseada
+      Swal.fire({
+        icon: 'success',
+        title: 'Vehículo eliminado',
+        text: 'El vehículo ha sido eliminado correctamente.',
+        confirmButtonText: 'OK',
+      });
+    } catch (error) {
+      console.log(error);
+      // Muestra una alerta o realiza cualquier otra acción deseada en caso de error
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al eliminar el vehículo',
+        text: 'Ocurrió un error al intentar eliminar el vehículo.',
+        confirmButtonText: 'OK',
+      });
+    }
   };
 
 
@@ -266,17 +301,15 @@ const UpdatePassword = async(e) =>{
       <div className="user-profile">
         <Modal ariaHideApp={false} className="modalVehicle" isOpen={showModal} onRequestClose={vehicleModal} >
       <h2>Solicitud de Vehículo</h2>
-      <form className='containerInputs' onSubmit={(e) => createVehicle(e)} >
-      <div className='contGroup'>
+      <form className='containerInputsVehicle' onSubmit={(e) => createVehicle(e)} >
         <FormGroup onChange={(e) => setPlaca(e.target.value)} nameInput="placa" contLabel="No. Placa" place="No. Placa"  maxLenght="6" inputType="text"/>
         <FormGroup onChange={(e) => setModel(e.target.value)} nameInput="model" contLabel="Modelo" place="Modelo" inputType="number"/>      
-        <select onChange={(e) => setType(e.target.value)}  name="vehicle" id="select-platform" placeholder='tipo Vehiculo'required className="select-create">
+        <select onChange={(e) => setType(e.target.value)}  name="vehicle" id="selectVehicle" placeholder='tipo Vehiculo'required className="select-create">
           <option value="">Tipo Vehiculo</option>
           <option value="Moto">Moto</option>
           <option value="Carro">Carro</option>
           </select>
                 
-      </div>
         <button type="submit">Enviar</button>
       </form>
         </Modal>
@@ -332,11 +365,18 @@ const UpdatePassword = async(e) =>{
               {/* <p><span className='spanInfo'>No. Licencia:</span> {userData?.license}</p> */}
             </div>
             <div className="allVehicles">
-                <h2>Mi vehiculo</h2>
+                <h2>Mis vehiculos</h2>
               <div className="contVehicles">
-                {vehicles.map((vehicle) => (
-                <div key={vehicle._id} className="vehicle">
-                  <img src={getImageSource(vehicle)} alt="" />
+                {vehicles.map((vehicle, index) => (
+                <div key={vehicle._id} className="vehicle" onClick={() => handleDeleteVehicle(index)} onMouseEnter={() => setHoveredVehicleIndex(index)} onMouseLeave={() => setHoveredVehicleIndex(null)}
+              >
+                   {hoveredVehicleIndex !==index ? (
+                    <img src={getImageSource(vehicle)} alt="" className="vehicleImage" />
+                  ) : (
+                    <img src="https://res.cloudinary.com/miguelgo205/image/upload/v1687367115/SpaceParking/papelera.webp" alt="" className="vehicleImagePapel" />
+                  )}
+                  
+                  {/* <img src={getImageSource(vehicle)} alt="" /> */}
                   <p><span>Placa:</span>{vehicle.placa}</p>
                   <p><span>Modelo:</span>{vehicle.model}</p>
                 </div>

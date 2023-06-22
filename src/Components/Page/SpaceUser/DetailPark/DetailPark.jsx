@@ -126,8 +126,12 @@ export const DetailPark = () => {
           // await axios.post("https://backend-space-parking.onrender.com/api/users/createBooking", bookingData);
           await axios.post("http://localhost:5000/api/users/createBooking", bookingData);
           correctBooking()
+          toggleModal()
+
         } catch (error) {
           incorrectBooking()
+          toggleModal()
+
           console.log(bookingData);
         }
       }
@@ -164,13 +168,13 @@ export const DetailPark = () => {
               <img className='imgModalParking' src={imageUrls[1]}  alt="" />
             </div>
             <div className="peqImg">
-              <img className='imgModalParking' src={imageUrls[1]}  alt="" />
+              <img className='imgModalParking' src={imageUrls[2]}  alt="" />
             </div>
             <div className="peqImg down">
-              <img className='imgModalParking' src={imageUrls[0]}  alt="" />
+              <img className='imgModalParking' src={imageUrls[3]}  alt="" />
             </div>
             <div className="peqImg down">
-              <img className='imgModalParking' src={imageUrls[1]}  alt="" />
+              <img className='imgModalParking' src={imageUrls[4]}  alt="" />
             </div>   
             </div>
           </div>

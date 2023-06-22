@@ -53,7 +53,7 @@ const showMinLengthMessage = () => {
   // const [mensaje, setMensaje] = useState();
   // const [loading, setLoading] = useState(false);
 
-  const { name, email, cellphone, idUser, password, placa, model, license, vehicle} = inputs;
+  const { name, email, cellphone, idUser, password, placa, model, license, vehicle, confirmarContraseña} = inputs;
 
   const onChange = (e) => {
     setInputs({...inputs, [e.target.name]: e.target.value})
@@ -101,8 +101,8 @@ const showMinLengthMessage = () => {
                 <FormGroup onChange={(e) => onChange(e)} nameInput="email" contLabel="Correo" place="Correo" inputType="email"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="cellphone" contLabel="Telefono" place="Telefono" inputType="number"/>
                 <FormGroup onChange={(e) => onChange(e)} nameInput="idUser" contLabel="No. Identificacion" place="No. Identificacion" inputType="number"/>
-                <FormGroup onChange={(e) => onChange(e)} onFocus={() => {if (password.length < 8) {showMinLengthMessage();}}} nameInput="password" contLabel="Contraseña" place="Contraseña" inputType="password"/>
-                <FormGroup nameInput="confirmarContraseña" contLabel="Confirmar Contraseña" place="Contraseña" inputType="password"/>
+                <FormGroup onChange={(e) => onChange(e)} nameInput="password" contLabel="Contraseña" place="Contraseña" inputType="password"/>
+                <FormGroup onChange={(e) => onChange(e)} nameInput="confirmarContraseña" contLabel="Confirmar Contraseña" place="Contraseña" inputType="password"/>
                 </div>
  
               </div>

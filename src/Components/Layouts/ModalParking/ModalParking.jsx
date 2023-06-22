@@ -7,7 +7,6 @@ import { MapCreate } from '../../UI/MapCreate/MapCreate';
 
 export const ModalParking = ({ isOpen, onRequestClose }) => {
   const [location, setLocation] = useState({ lat: null, lng: null });
-  const [loading, setLoading] = useState(false);
   const [imageUrls, setImageUrls] = useState([]);
   let uploaders = [];
   const handleLocationChange = (latlng) => {
@@ -23,7 +22,6 @@ export const ModalParking = ({ isOpen, onRequestClose }) => {
       formData.append('upload_preset', 'Parkings');
       formData.append('api_key', '975486234138471');
       formData.append('timestamp', Math.floor(Date.now() / 1000));
-      setLoading(true);
       return axios
         .post('https://api.cloudinary.com/v1_1/miguelgo205/image/upload', formData, {
           headers: { 'X-Requested-With': 'XMLHttpRequest' },
@@ -39,13 +37,11 @@ export const ModalParking = ({ isOpen, onRequestClose }) => {
       await Promise.all(uploaders);
     } catch (error) {
       console.error('Error al subir las imágenes:', error);
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   const allUrls = imageUrls.join(',');
-  console.log(allUrls);
+  // console.log(allUrls);
 
   const accountCreate = () => {
     Swal.fire({
@@ -53,6 +49,21 @@ export const ModalParking = ({ isOpen, onRequestClose }) => {
       title: 'Cuenta Creada Existosamente',
     });
   };
+
+
+  const incorrectPasswords = () =>{
+    Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Las Contraseñas No Coinciden',
+        confirmButtonText: 'OK',
+        customClass: {
+          title: 'titleUpdateIncorrect',
+          content: 'textUpdatePass',
+          confirmButton: 'btnIncorrectPass',
+        },
+      })
+}
 
   const [inputs, setInputs] = useState({
     name: '',
@@ -71,7 +82,7 @@ export const ModalParking = ({ isOpen, onRequestClose }) => {
     priceMotorcycle: '',
   });
 
-  const { name, email, cellphone, idUserParking, password, nameParking, address, cellphoneParking, nit, hourStart, hourEnd, capacity, priceCar, priceMotorcycle } = inputs;
+  const { name, email, cellphone, idUserParking, password, nameParking, address, cellphoneParking, nit, hourStart, hourEnd, capacity, priceCar, priceMotorcycle, confirmPassword } = inputs;
 
   const onSaveData = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -98,6 +109,13 @@ export const ModalParking = ({ isOpen, onRequestClose }) => {
       allUrls,
       location: { lat: location.lat, lng: location.lng },
     };
+
+    const confirmPassword = inputs.confirmPassword;
+    if (password !== confirmPassword) {
+      // alert('La contraseña y la confirmación de contraseña no coinciden.');
+      incorrectPasswords()
+      return;
+    }
 
     try {
       await Promise.all([sendImageUpload(), sendUserData(UsuarioParking)]);
@@ -131,7 +149,7 @@ export const ModalParking = ({ isOpen, onRequestClose }) => {
               <FormGroup onChange={onSaveData} nameInput="cellphone" contLabel="Telefono" place="Telefono" inputType="number" />
               <FormGroup onChange={onSaveData} nameInput="idUserParking" contLabel="No. Identificacion" place="No. Identificacion" inputType="number" />
               <FormGroup onChange={onSaveData} nameInput="password" contLabel="Contraseña" place="Contraseña" inputType="password" />
-              <FormGroup contLabel="Confirmar Contraseña" place="Contraseña" inputType="password" />
+              <FormGroup onChange={onSaveData} nameInput="confirmPassword" contLabel="Confirmar Contraseña" place="Contraseña" inputType="password" />
               <FormGroup onChange={onSaveData} nameInput="hourStart" contLabel="Hora Inicio" place="Hora Inicio" inputType="time" />
               <FormGroup onChange={onSaveData} nameInput="hourEnd" contLabel="Hora Fin" place="Hora Fin" inputType="time" />
             </div>

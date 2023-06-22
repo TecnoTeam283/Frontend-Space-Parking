@@ -71,7 +71,7 @@ body{
 
 
 .icon-car{
-    width: 10px;
+    width: 10%;
     height: 10px;
     cursor: pointer;
 }
@@ -98,14 +98,11 @@ body{
     width: 80%;
     height: 100%;
     padding: 2rem;
-    /* border: solid 2px gray; */
     border-left:  solid 2px gray;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* align-items: center; */
     justify-content: space-evenly;
-    /* background-color: black; */
 }
 
 
