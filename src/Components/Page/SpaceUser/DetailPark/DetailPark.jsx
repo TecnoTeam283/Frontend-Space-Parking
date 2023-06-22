@@ -117,6 +117,7 @@ export const DetailPark = () => {
           nitParking: dataParking?.nit, 
           idUser: userData?.idUser,
           userName: userData?.name,
+          placa: selectedVehicle,
           cellphone: userData.phone,
           dateStartBooking: formattedDate,  // Fecha de inicio de la reserva en formato ISO 8601
           duration: 30, // Duración de la reserva en minutos

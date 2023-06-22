@@ -5,14 +5,17 @@ import './HomeParking.css';
 import { Circle } from '../../../UI/Circle/Circle';
 import { Link } from 'react-router-dom';
 import { ModalState } from '../../../Layouts/ModalState/ModalState';
+import LazyLoad from 'react-lazy-load';
+import Modal from 'react-modal'
 import axios from 'axios';
 export const HomeParking = () => {
   const { userData } = useContext(UserDataContext);
 
-
   const [isOpenStates, setIsOpenStates] = useState(false);
   const [stateSelected, setState] = useState('');
   const [spaces, setSpaces] = useState([]);
+  const [bookings, setbookings] = useState([]);
+  const [showModal, setShowModal] = useState(false);
   
 
   // Obtener espacios
@@ -30,6 +33,31 @@ export const HomeParking = () => {
     getSpaces();
   });
 
+
+
+
+  const getBookings = async () => {
+    try {
+      if (userData?.nit) {
+        const response = await axios.get(`http://localhost:5000/api/users/getBookingsByNitParking/${userData.nit}`);
+        // const response = await axios.get(`https://backend-space-parking.onrender.com/api/users/getBookingsByNitParking/${userData.nit}`);
+        setbookings(response.data)
+        console.log(response.data);
+      }
+    } catch (error) {
+    }
+  };
+
+  useEffect(() => {
+    getBookings();
+  });
+
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+    console.log(userData);
+  };
+
   const openModalState = (spaceSelected) => {
     setIsOpenStates(true);
     setState(spaceSelected);
@@ -43,6 +71,11 @@ export const HomeParking = () => {
   const toggleDiv = () => {
     setShowDiv(!showDiv);
   };
+  const [showNoti, setShowNoti] = useState(false);
+  
+  const toggleNoti = () => {
+    setShowNoti(!showNoti);
+  };
 
   // console.log(spaces.length);
 
@@ -52,8 +85,21 @@ export const HomeParking = () => {
       <header className='headerParking'>
         <Logo to='/HomeParking' idLogo='logoHomeUser' />
         <h3 id='nameUser'>{userData?.nameParking}</h3>
-        {/* <i className='icon-bell'></i> */}
+        <i  onClick={toggleNoti} className='icon-bell'></i>
+        <Modal ariaHideApp={false} isOpen={showNoti} onRequestClose={toggleNoti} className='modalNoti'>
+          <h2>Centro de Reservas</h2>
+          <div className="containerNoti">
+            {bookings.map((booking) => (
+              <div className='booking'>
+                <p>Tienes una reserva del <span className='spanNoti'>Usuario: </span> {booking.userName} en el {booking.spaceBooking} <span className='spanNoti'> Placa: </span> {booking.placa}, <span className='spanNoti'>Telefono: </span> {booking.cellphone} <br /> <span className='spanNoti'>fecha y hora reserva:</span> {booking.
+dateStartBooking}  </p>
+              </div>
+
+            ))}
+          </div>
+        </Modal>
         <div onClick={toggleDiv} className='contIcon'>
+        
           <i className='icon-user'></i>
         </div>
         {showDiv && (
@@ -90,12 +136,14 @@ export const HomeParking = () => {
         </section>
         <aside className='availabilityMap'>
         {spaces.map((space) => (
-          <Circle
-            state={space.state}
-            onClick={() => openModalState(space)}
-            key={space._id} // Utiliza un identificador único para la clave de cada componente
-            id={space._id} // Pasa el ID del espacio como una prop
-          />
+          // <LazyLoad className="availabilityMap"  key={space._id} offset={100} placeholder={<div>Loading...</div>}>
+            <Circle
+              state={space.state}
+              onClick={() => openModalState(space)}
+              key={space._id} // Utiliza un identificador único para la clave de cada componente
+              id={space._id} // Pasa el ID del espacio como una prop
+            />
+          // </LazyLoad>
         ))}
         </aside>
       </main>
