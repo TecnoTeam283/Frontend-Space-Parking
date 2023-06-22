@@ -348,8 +348,8 @@ const UpdatePassword = async(e) =>{
           <form className='containerInputs' onSubmit={(e) => UpdatePassword(e)} action=''>
             <FormGroup onChange={(e) => setPassword(e.target.value)} nameInput="currentPassword" inputType="password" contLabel="Contraseña Actual" />
             <FormGroup onChange={(e) => setEmail(e.target.value)} nameInput="email" inputType="email" contLabel="Correo" />
-            <FormGroup onChange={(e) => setNewPassword(e.target.value)} nameInput="newPassword" inputType="text" contLabel="Nueva Contraseña" />
-            <FormGroup onChange={(e) => setConfirmPassword(e.target.value)} nameInput="confirmPassword" inputType="text" contLabel="Confirmar Nueva Contraseña" />
+            <FormGroup onChange={(e) => setNewPassword(e.target.value)} nameInput="newPassword" inputType="password" contLabel="Nueva Contraseña" />
+            <FormGroup onChange={(e) => setConfirmPassword(e.target.value)} nameInput="confirmPassword" inputType="password" contLabel="Confirmar Nueva Contraseña" />
             <div className="contFuncBtns">
                 <button type='submit'>Actualizar Contraseña</button>
                 <button onClick={()=> setEditingPassword(false)}>Cancelar</button>
