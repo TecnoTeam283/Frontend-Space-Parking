@@ -16,8 +16,8 @@ export const HomeUser = () => {
   // RENDERIZADO DE PARQUEADREOS 
   const [collection, setCollection] = useState([]);
 
-  const apiGetParkigns = "http://localhost:5000/api/users/getParking"
-  // const apiGetParkigns = "https://backend-space-parking.onrender.com/api/users/getParking"
+  // const apiGetParkigns = "http://localhost:5000/api/users/getParking"
+  const apiGetParkigns = "https://backend-space-parking.onrender.com/api/users/getParking"
 
 
 
@@ -51,8 +51,8 @@ export const HomeUser = () => {
     else{
       const searchingParkings = async () => {
         try {
-          const searching = await axios.post("http://localhost:5000/api/users/search", {searchTerm: searchValue})
-          // const searching = await axios.post("https://backend-space-parking.onrender.com/api/users/search", {searchTerm: searchValue})
+          // const searching = await axios.post("http://localhost:5000/api/users/search", {searchTerm: searchValue})
+          const searching = await axios.post("https://backend-space-parking.onrender.com/api/users/search", {searchTerm: searchValue})
           setCollection(searching.data)
         } catch (error) {
           console.log(error);

@@ -132,7 +132,8 @@ export const ModalParking = ({ isOpen, onRequestClose }) => {
   };
 
   const sendUserData = (userData) => {
-    return axios.post('http://localhost:5000/api/users/registerParking', userData);
+    // return axios.post('http://localhost:5000/api/users/registerParking', userData);
+    return axios.post('https://backend-space-parking.onrender.com/api/users/registerParking', userData);
   };
 
   return (

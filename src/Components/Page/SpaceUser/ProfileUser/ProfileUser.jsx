@@ -147,7 +147,8 @@ export const ProfileUser = () => {
       setVehicles(updatedVehicles);
   
       // Realiza la solicitud HTTP para eliminar el vehículo del backend
-      await axios.delete(`http://localhost:5000/api/users/deleteVehicles/${userData?.idUser}/${vehicles[index]?._id}`);
+      // await axios.delete(`http://localhost:5000/api/users/deleteVehicles/${userData?.idUser}/${vehicles[index]?._id}`);
+      await axios.delete(`https://backend-space-parking.onrender.com/api/users/deleteVehicles/${userData?.idUser}/${vehicles[index]?._id}`);
   
       // Muestra una alerta o realiza cualquier otra acción deseada
       Swal.fire({
@@ -176,8 +177,8 @@ export const ProfileUser = () => {
     };
     
     try {
-      // await axios.post(`httpS://backend-space-parking.onrender.com/api/users/addVehicles/${userData?.idUser}`, vehicle);
-      await axios.post(`http://localhost:5000/api/users/addVehicles/${userData?.idUser}`, vehicle);
+      await axios.post(`https://backend-space-parking.onrender.com/api/users/addVehicles/${userData?.idUser}`, vehicle);
+      // await axios.post(`http://localhost:5000/api/users/addVehicles/${userData?.idUser}`, vehicle);
       getUser();
       vehicleModal();
       correctAddVehicle();
@@ -231,9 +232,9 @@ export const ProfileUser = () => {
       };
       
       try {
-        // await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUser/${userData?.idUser}`, User);
         console.log(User);
-        await axios.patch(`http://localhost:5000/api/users/updateUser/${userData?.idUser}`, User);
+        // await axios.patch(`http://localhost:5000/api/users/updateUser/${userData?.idUser}`, User);
+        await axios.patch(`https://backend-space-parking.onrender.com/api/users/updateUser/${userData?.idUser}`, User);
         getUser()
         setIsEditing(false);
         correctUpdateData();
@@ -246,7 +247,8 @@ export const ProfileUser = () => {
  const getUser = async () => {
   try {
     if (userData?.email) {
-      const response = await axios.post('http://localhost:5000/api/users/meUser', { email: userData?.email });
+      // const response = await axios.post('http://localhost:5000/api/users/meUser', { email: userData?.email });
+      const response = await axios.post('https://backend-space-parking.onrender.com/api/users/meUser', { email: userData?.email });
       updateUserData(response.data);
       setVehicles(response.data.vehicle);
     }

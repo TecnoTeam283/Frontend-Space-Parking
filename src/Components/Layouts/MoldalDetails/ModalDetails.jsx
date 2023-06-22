@@ -57,7 +57,7 @@ const createBooking = async () => {
     };
 
     try {
-      await axios.post("https://backend-space-parking.onrender.com|/api/users/createBooking", bookingData);
+      await axios.post("https://backend-space-parking.onrender.com/api/users/createBooking", bookingData);
       alert('Reserva Realizada')
       correctBooking()
 
